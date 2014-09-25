@@ -5,6 +5,23 @@
 	<head>
 		<title>Dungeon</title>
 		
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+		
+		<script>
+			app = angular.module("dungeonApp", []);
+			
+			app.controller("dungeonController", function($scope,$timeout) {
+				
+				$scope.commands = ["look","eat","yell","crap self"];
+				
+				$scope.boyfriend = "Rus Fillmore!!";
+				
+				$timeout(function() {$scope.commands.push("fart")},5000)
+			
+			});
+			
+		</script>
+		
 		<style>
 		
 		.player_stats div{
@@ -31,7 +48,7 @@
 	
 	
 	
-	<body>
+	<body ng-app="dungeonApp" ng-controller="dungeonController">
 		<div class="header">
 			<h1>This an adventure</h1>
 		
@@ -88,11 +105,7 @@
 				<h2>Known Commands</h2>
 				
 				<ul>
-					
-					<li>Look around</li>
-					<li>Fight</li>
-					<li>Run</li>
-					
+					<li ng-repeat="command in commands">{{command}}</li>
 				</ul>
 				
 			</div>
@@ -119,7 +132,8 @@
 			<!-- the main text box where all the action happens -->
 			<div id="box">
 				<h3>Shiz fo Sho</h3>
-				<p>This is the Command box. This is where people will type commands and the command box will print out a result for that command<p>
+				<p>This is the Command box. This is where people will type commands and the command box will print out a result for that command</p>
+				<input type="text"></input>
 			</div>
 		
 		</div>
