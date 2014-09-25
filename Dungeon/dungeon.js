@@ -15,6 +15,8 @@ app.controller("dungeonController", function($scope,$timeout) {
 			if(!_.contains($scope.known_commands,$scope.user_text)) {
 				$scope.known_commands.push($scope.user_text);
 			}
+		} else {
+			$scope.results.push("I don't understand " + $scope.user_text );
 		}
 		$scope.user_text = "";
 	}
