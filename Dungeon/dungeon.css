@@ -1,0 +1,18 @@
+.player_stats div{
+	display: inline-block;
+}
+
+.room_info div{
+	display: inline-block;
+}
+
+#map {
+	display:inline-block;
+	width:100px;
+	height:100px;
+}
+
+#box{
+	width:400px;
+
+}

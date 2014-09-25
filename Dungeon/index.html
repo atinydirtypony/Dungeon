@@ -6,44 +6,12 @@
 		<title>Dungeon</title>
 		
 		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
 		
-		<script>
-			app = angular.module("dungeonApp", []);
-			
-			app.controller("dungeonController", function($scope,$timeout) {
-				
-				$scope.commands = ["look","eat","yell","crap self"];
-				
-				$scope.boyfriend = "Rus Fillmore!!";
-				
-				$timeout(function() {$scope.commands.push("fart")},5000)
-			
-			});
-			
-		</script>
+		<script src="dungeon.js"></script>
+
+		<link rel="stylesheet" href="dungeon.css"></link>
 		
-		<style>
-		
-		.player_stats div{
-			display: inline-block;
-		}
-		
-		.room_info div{
-			display: inline-block;
-		}
-		
-		#map {
-			display:inline-block;
-			width:100px;
-			height:100px;
-		}
-		
-		#box{
-			width:400px;
-		
-		}
-		
-		</style>
 	</head>
 	
 	
@@ -105,7 +73,7 @@
 				<h2>Known Commands</h2>
 				
 				<ul>
-					<li ng-repeat="command in commands">{{command}}</li>
+					<li ng-repeat="command in known_commands track by $index">{{command}}</li>
 				</ul>
 				
 			</div>
@@ -133,7 +101,7 @@
 			<div id="box">
 				<h3>Shiz fo Sho</h3>
 				<p>This is the Command box. This is where people will type commands and the command box will print out a result for that command</p>
-				<input type="text"></input>
+				<form ng-submit="ref_user_text()"><input type="text" ng-model="user_text"></input></form>
 			</div>
 		
 		</div>
