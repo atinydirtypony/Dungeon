@@ -100,7 +100,7 @@
 			<!-- the main text box where all the action happens -->
 			<div id="box">
 				<h3>Shiz fo Sho</h3>
-				<p>This is the Command box. This is where people will type commands and the command box will print out a result for that command</p>
+				<p ng-repeat="result in results track by $index">{{result}}</p>
 				<form ng-submit="ref_user_text()"><input type="text" ng-model="user_text"></input></form>
 			</div>
 		
