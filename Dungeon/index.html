@@ -47,12 +47,7 @@
 				<h2>Attributes</h2>
 				
 				<ul>
-				
-					<li>Health: {{player.getHealth()}}</li>
-					<li>Mana: {{player.getMana()}}</li>
-					<li>Vitality: {{player.getVitality()}}</li>
-					<li>Level: {{player.getLevel()}}</li>
-
+					<li ng-repeat="stat in player.getStats()">{{stat.name}}: {{stat.current}} of {{stat.maximum}}</li>
 				</ul>
 			</div>
 			
