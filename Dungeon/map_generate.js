@@ -11,6 +11,7 @@ var Room = function(){
 		if(monsters.length != 0){
 			enemy=monsters[Math.Floor(monster.length * Math.Random)];
 			alert("you are fighting a "+ enemy);
+		}
 	}
 }
 
