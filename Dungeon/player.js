@@ -15,7 +15,7 @@ app.factory("player", function(floor) {
 	
 	var experience = 0;
 	
-	var location = [1000,1000];
+	var location = {x: 1000, y: 1000};
 	//var floor = floor1;
 	
 	function levelUp() {
@@ -32,7 +32,20 @@ app.factory("player", function(floor) {
 		experience += exp;
 	}
 	
-	this.move = function(){
+	this.move = function(dPad){
+		var tempLocation = {x : location.x, y: location.y}
+		if(dPad = "left"){
+			templocation.x+=-1;
+		}
+		if(dPad = "right"){
+			templocation.x+=1;
+		}
+		if(dPad = "up"){
+			templocation.y+=-1;
+		}
+		if(dPad = "down"){
+			templocation.y+=1;
+		}
 		
 		
 		
