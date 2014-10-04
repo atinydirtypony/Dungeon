@@ -2,18 +2,121 @@
 var Room = function(){
 	var collectables = [];
 	var furniture = [];
-	var monsters =["taco","fish","bat"];
+	var monsters =[];
 	var home_base = false;
 	var enemy = null;
+
 	
-	//begin a fight with a monster
-	this.battle = function(){
-		if(monsters.length != 0){
-			enemy=monsters[Math.floor(monsters.length * Math.random())];
-			alert("you are fighting a "+ enemy);
-		}
-	}
+	
+	//doors (north, south, east, west)
+	var doors = ["open","open","open","open"];
+
+	
+		
+	
 }
 
+
+//Floor Class
+app.factory("floor", function() {
+
+	var roomSet = new Array();
+	for(i=0;i<2000;i++){
+		roomSet[i] = new Array();
+		for(j=0;j<2000;j++){
+			roomSet[i][j] = null;
+		} 
+	}
+	
+	
+	//create new room
+	this.newRoom = function(x,y){
+		roomSet[x][y] = new Room();
+		alert("now in: " + x + " , " + y);
+		
+		//north door
+		if(roomSet[x][y-1] != null){
+			if(roomSet[x][y-1].doors[1] == "open"){
+				roomSet[x][y].doors[0] = "open";
+			}else{
+				roomSet[x][y].doors[0] = "closed";
+			}
+		}else{
+			var chance = Math.floor(2*Math.random());
+			if(chance){
+				roomSet[x][y].doors[0] = "closed";
+			}else{
+				roomSet[x][y].doors[0] = "open";
+			}
+		}
+		
+		//South door
+		if(roomSet[x][y+1] != null){
+			if(roomSet[x][y+1].doors[0] == "open"){
+				roomSet[x][y].doors[1] = "open";
+			}else{
+				roomSet[x][y].doors[1] = "closed";
+			}
+		}else{
+			var chance = Math.floor(2*Math.random());
+			if(chance){
+				roomSet[x][y].doors[1] = "closed";
+			}else{
+				roomSet[x][y].doors[1] = "open";
+			}
+		}
+		
+		
+		//East door
+		if(roomSet[x+1][y] != null){
+			if(roomSet[x+1][y].doors[4] == "open"){
+				roomSet[x][y].doors[3] = "open";
+			}else{
+				roomSet[x][y].doors[3] = "closed";
+			}
+		}else{
+			var chance = Math.floor(2*Math.random());
+			if(chance){
+				roomSet[x][y].doors[3] = "closed";
+			}else{
+				roomSet[x][y].doors[3] = "open";
+			}
+		}
+	
+	
+		if(roomSet[x-1][y] != null){
+			if(roomSet[x-1][y].doors[3] == "open"){
+				roomSet[x][y].doors[4] = "open";
+			}else{
+				roomSet[x][y].doors[4] = "closed";
+			}
+		}else{
+			var chance = Math.floor(2*Math.random());
+			if(chance){
+				roomSet[x][y].doors[4] = "closed";
+			}else{
+				roomSet[x][y].doors[4] = "open";
+			}
+		}
+	}
+	
+	
+	//check to see if a room exists
+	this.roomCheck = function(x,y){
+		if(roomSet[x][y] != null){
+			return true;
+		}else{
+		return false;
+		}
+	
+	
+	}
+	return this;
+});
 //Makes map
-var current_room = new Room();
+
+//floor1 = new Floor();
+
+
+
+

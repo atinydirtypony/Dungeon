@@ -1,4 +1,4 @@
-app.factory("player", function() {
+app.factory("player", function(floor) {
 	
 	var name = "Unnamed Player";
 	
@@ -15,6 +15,9 @@ app.factory("player", function() {
 	
 	var experience = 0;
 	
+	var location = [1000,1000];
+	//var floor = floor1;
+	
 	function levelUp() {
 		
 	}
@@ -27,7 +30,13 @@ app.factory("player", function() {
 	
 	this.addExperience = function(exp) {
 		experience += exp;
-	}	
+	}
+	
+	this.move = function(){
+		
+		
+		
+	}
 	
 	return this;
 });
