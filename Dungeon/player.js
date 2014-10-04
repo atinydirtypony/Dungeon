@@ -32,22 +32,28 @@ app.factory("player", function(floor) {
 		experience += exp;
 	}
 	
-	this.move = function(dPad){
-		var tempLocation = {x : location.x, y: location.y}
-		if(dPad = "left"){
-			templocation.x+=-1;
+	this.getRoom = function() {
+		floor.getRoom(location.x, location.y);
+	}
+	
+	this.move = function(direction){
+		if(this.getRoom().hasDoor(direction)) {			
+			if(direction = "west"){
+				location.x+=-1;
+			}
+			if(direction = "east"){
+				location.x+=1;
+			}
+			if(direction = "north"){
+				location.y+=-1;
+			}
+			if(direction = "south"){
+				location.y+=1;
+			}
+			this.getRoom();
+		} else {
+			return false;
 		}
-		if(dPad = "right"){
-			templocation.x+=1;
-		}
-		if(dPad = "up"){
-			templocation.y+=-1;
-		}
-		if(dPad = "down"){
-			templocation.y+=1;
-		}
-		
-		
 		
 	}
 	

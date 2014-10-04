@@ -5,13 +5,24 @@ var Room = function(){
 	var monsters =[];
 	var home_base = false;
 	var enemy = null;
-
-	
 	
 	//doors (north, south, east, west)
 	var doors = ["open","open","open","open"];
 
-	
+	this.hasDoor = function(direction) {
+		if(direction == "north") {
+			return doors[0] == "open";
+		}
+		if(direction =="south") {
+			return doors[1] == "open";
+		}
+		if(direciton == "east") {
+			return doors[2] == "open";
+		}
+		if(direction == "west") {
+			retur doors[3] == "open";
+		}
+	}
 		
 	
 }
@@ -98,6 +109,11 @@ app.factory("floor", function() {
 				roomSet[x][y].doors[4] = "open";
 			}
 		}
+	}
+	
+	this.getRoom = function(x,y) {
+		// TODO Possibly check and build room
+		return roomSet[x][y];
 	}
 	
 	
