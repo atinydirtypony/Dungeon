@@ -28,16 +28,16 @@ app.controller("dungeonController", function($scope,$timeout,player,floor) {
 			if($scope.user.text.indexOf("move") >= 0){
 				
 				if($scope.user.text.indexOf("up") >= 0 || $scope.user.text.indexOf("north") >= 0){
-					player.location[0]+=1;
+					player.move("north");
 					
 				} else if($scope.user.text.indexOf("down") >= 0 || $scope.user.text.indexOf("south") >= 0){
-					player.location[0]-=1;
+					player.move("south");
 					
 				}else if($scope.user.text.indexOf("left") >= 0 || $scope.user.text.indexOf("west") >= 0){
-					player.location[1]-=1;
+					player.move("west");
 					
 				}else if($scope.user.text.indexOf("right") >= 0 || $scope.user.text.indexOf("east") >= 0){
-					player.location[1]+=1;
+					player.move("east");
 					
 				}else{
 					var x_or_y =Math.floor( Math.random()*2);
