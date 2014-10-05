@@ -6,6 +6,9 @@ app.factory("monsterFactory", function() {
 	
 	var Monster = function(monsterName, monsterType) {
 		
+		var health = 100;
+		var strength = 100;
+		
 		this.getName = function() {
 			return monsterName;
 		}
@@ -13,6 +16,11 @@ app.factory("monsterFactory", function() {
 		this.getType = function() {
 			return monsterType;
 		}
+		
+		this.fight = function(player) {
+			// TODO FIGHT THE PLAYER AND UPDATE STATS ACCORDINGLY
+		}
+		
 	}
 	
 	this.createMonster = function() {
