@@ -10,7 +10,7 @@ app.controller("dungeonController", function($scope,$timeout,player,floor) {
 	$scope.player = player;
 	
 	$scope.init = function() {
-		floor.newRoom(10,10);
+		floor.newRoom(1000,1000);
 	}
 	
 	$scope.ref_user_text = function(){
@@ -25,18 +25,18 @@ app.controller("dungeonController", function($scope,$timeout,player,floor) {
 			
 			
 			//moves player
-			if($scope.user.text.indexOf("move") >= 0){
+			if($scope.user_text.indexOf("move") >= 0){
 				
-				if($scope.user.text.indexOf("up") >= 0 || $scope.user.text.indexOf("north") >= 0){
+				if($scope.user_text.indexOf("up") >= 0 || $scope.user_text.indexOf("north") >= 0){
 					player.move("north");
 					
-				} else if($scope.user.text.indexOf("down") >= 0 || $scope.user.text.indexOf("south") >= 0){
+				} else if($scope.user_text.indexOf("down") >= 0 || $scope.user_text.indexOf("south") >= 0){
 					player.move("south");
 					
-				}else if($scope.user.text.indexOf("left") >= 0 || $scope.user.text.indexOf("west") >= 0){
+				}else if($scope.user_text.indexOf("left") >= 0 || $scope.user_text.indexOf("west") >= 0){
 					player.move("west");
 					
-				}else if($scope.user.text.indexOf("right") >= 0 || $scope.user.text.indexOf("east") >= 0){
+				}else if($scope.user_text.indexOf("right") >= 0 || $scope.user_text.indexOf("east") >= 0){
 					player.move("east");
 					
 				}else{

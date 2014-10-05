@@ -16,18 +16,23 @@ app.factory("player", function(floor) {
 	var experience = 0;
 	
 	var location = {x: 1000, y: 1000};
-	//var floor = floor1;
+
+	var stats = [];
 	
 	function levelUp() {
 		
 	}
 	
 	this.getStats = function() {
-		return [{name: "Health", current: health, maximum: maximumHealth},
+		return stats;
+	}
+	
+	this.updateStats = function() {
+		stats = [{name: "Health", current: health, maximum: maximumHealth},
 		        {name: "Mana", current: mana, maximum: maximumMana},
 		        {name: "Vitality", current: vitality, maximum: maximumVitality}]
 	}
-	
+
 	this.addExperience = function(exp) {
 		experience += exp;
 	}
@@ -56,6 +61,8 @@ app.factory("player", function(floor) {
 		}
 		
 	}
+	
+	this.updateStats();
 	
 	return this;
 });

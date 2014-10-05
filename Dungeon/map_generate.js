@@ -7,20 +7,20 @@ var Room = function(){
 	var enemy = null;
 	
 	//doors (north, south, east, west)
-	var doors = ["open","open","open","open"];
+	this.doors = ["open","open","open","open"];
 
 	this.hasDoor = function(direction) {
 		if(direction == "north") {
-			return doors[0] == "open";
+			return this.doors[0] == "open";
 		}
 		if(direction =="south") {
-			return doors[1] == "open";
+			return this.doors[1] == "open";
 		}
 		if(direciton == "east") {
-			return doors[2] == "open";
+			return this.doors[2] == "open";
 		}
 		if(direction == "west") {
-			return doors[3] == "open";
+			return this.doors[3] == "open";
 		}
 	}
 		
@@ -113,6 +113,7 @@ app.factory("floor", function() {
 	
 	this.getRoom = function(x,y) {
 		if(!this.roomCheck(x,y)){
+			alert(x + " - " + y);
 			this.newRoom(x,y);
 		}
 		return roomSet[x][y];
@@ -121,10 +122,11 @@ app.factory("floor", function() {
 	
 	//check to see if a room exists
 	this.roomCheck = function(x,y){
+		alert("HERE")
 		if(roomSet[x][y] != null){
 			return true;
 		}else{
-		return false;
+			return false;
 		}
 	
 	
