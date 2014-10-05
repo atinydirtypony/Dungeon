@@ -56,6 +56,7 @@ app.factory("player", function(floor) {
 				location.y+=1;
 			}
 			this.getRoom();
+			alert("now in: " + x + " , " + y);
 		} else {
 			return false;
 		}
