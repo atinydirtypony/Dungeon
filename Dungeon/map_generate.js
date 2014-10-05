@@ -20,7 +20,7 @@ var Room = function(){
 			return doors[2] == "open";
 		}
 		if(direction == "west") {
-			retur doors[3] == "open";
+			return doors[3] == "open";
 		}
 	}
 		
@@ -112,7 +112,9 @@ app.factory("floor", function() {
 	}
 	
 	this.getRoom = function(x,y) {
-		// TODO Possibly check and build room
+		if(!this.roomCheck(x,y)){
+			this.newRoom(x,y);
+		}
 		return roomSet[x][y];
 	}
 	

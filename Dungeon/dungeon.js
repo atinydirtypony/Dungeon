@@ -15,7 +15,7 @@ app.controller("dungeonController", function($scope,$timeout,player,floor) {
 	
 	$scope.ref_user_text = function(){
 		console.log($scope.user_text);
-		if(_.contains($scope.commands, $scope.user_text)) {
+		if(_.contains($scope.commands, $scope.user_text.split(" ")[0])) {
 			$scope.results.push("You have " + $scope.user_text + "ed!");
 			//add's to known commands
 			
