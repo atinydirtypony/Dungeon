@@ -38,26 +38,27 @@ app.factory("player", function(floor) {
 	}
 	
 	this.getRoom = function() {
-		floor.getRoom(location.x, location.y);
+		return floor.getRoom(location.x, location.y);
 	}
 	
 	this.move = function(direction){
 		if(this.getRoom().hasDoor(direction)) {			
-			if(direction = "west"){
-				location.x+=-1;
+			if(direction == "west"){
+				location.x = location.x -1;
 			}
-			if(direction = "east"){
-				location.x+=1;
+			if(direction == "east"){
+				location.x = location.x +1;
 			}
-			if(direction = "north"){
-				location.y+=-1;
+			if(direction == "north"){
+				location.y = location.y -1;
 			}
-			if(direction = "south"){
-				location.y+=1;
+			if(direction == "south"){
+				location.y = location.y + 1;
 			}
 			this.getRoom();
-			alert("now in: " + x + " , " + y);
+			alert("now in: " + location.x + " , " + location.y);
 		} else {
+			alert("no door");
 			return false;
 		}
 		

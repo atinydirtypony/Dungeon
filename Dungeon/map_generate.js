@@ -16,7 +16,7 @@ var Room = function(){
 		if(direction =="south") {
 			return this.doors[1] == "open";
 		}
-		if(direciton == "east") {
+		if(direction == "east") {
 			return this.doors[2] == "open";
 		}
 		if(direction == "west") {
@@ -113,7 +113,6 @@ app.factory("floor", function() {
 	
 	this.getRoom = function(x,y) {
 		if(!this.roomCheck(x,y)){
-			alert(x + " - " + y);
 			this.newRoom(x,y);
 		}
 		return roomSet[x][y];
@@ -122,14 +121,11 @@ app.factory("floor", function() {
 	
 	//check to see if a room exists
 	this.roomCheck = function(x,y){
-		alert("HERE")
 		if(roomSet[x][y] != null){
 			return true;
 		}else{
 			return false;
 		}
-	
-	
 	}
 	return this;
 });
