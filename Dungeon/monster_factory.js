@@ -7,7 +7,7 @@ app.factory("monsterFactory", function() {
 	var Monster = function(monsterName, monsterType) {
 		
 		var health = 100;
-		var strength = Math.floor(Math.randome*100);
+		var strength = Math.floor(Math.random()*100)+1;
 		
 		this.getName = function() {
 			return monsterName;
@@ -19,6 +19,7 @@ app.factory("monsterFactory", function() {
 		
 		this.fight = function(player) {
 			// TODO FIGHT THE PLAYER AND UPDATE STATS ACCORDINGLY
+			
 		}
 		
 	}

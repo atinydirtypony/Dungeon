@@ -42,6 +42,7 @@ app.factory("player", function(floor) {
 	}
 	
 	this.move = function(direction){
+		console.log(direction);
 		if(this.getRoom().hasDoor(direction)) {			
 			if(direction == "west"){
 				location.x = location.x -1;

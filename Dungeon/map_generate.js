@@ -7,7 +7,8 @@ var Room = function(){
 	var enemy = null;
 	
 	//doors (north, south, east, west)
-	this.doors = ["open","open","open","open"];
+	this.doors = {north:true, south:true, east:true, west:true};
+	this.locks = {north:false, south:false, east:false, west:false};
 	
 	for(i=0; i<Math.floor(Math.random()*10); i++){
 		var rand_item = Math.floor(Math.random()*1000);
@@ -25,22 +26,59 @@ var Room = function(){
 			collectables.push("dead-baby");
 		}else if(rand_item>=900 && rand_item<999){
 			collectables.push("balloon");
+		}
 		
 	}
 
 	this.hasDoor = function(direction) {
 		if(direction == "north") {
-			return this.doors[0] == "open";
+			return this.doors.north;
 		}
 		if(direction =="south") {
-			return this.doors[1] == "open";
+			return this.doors.south;
 		}
-		if(direciton == "east") {
-			return this.doors[2] == "open";
+		if(direction == "east") {
+			return this.doors.east;
 		}
 		if(direction == "west") {
-			return this.doors[3] == "open";
+			return this.doors.west;
 		}
+	}
+	
+	this.isLocked = function(direction){
+		if(direction == "north") {
+			return this.locks.north;
+		}
+		if(direction =="south") {
+			return this.locks.south;
+		}
+		if(direction == "east") {
+			return this.locks.east;
+		}
+		if(direction == "west") {
+			return this.locks.west;
+		}
+		
+	}
+	
+	
+	this.getInfo = function(){
+		var info = "";
+		info = info+"This room has doors in the ";
+		dOOrs =0;
+		for(direction in this.doors){
+			if(this.doors[direction]){
+				if(dOOrs.length>0){
+					info = info + "and ";
+				}
+				
+				info = info + direction+" ";
+				dOOrs+=1;
+			}
+		}
+		
+		
+		return info;
 	}
 		
 	
@@ -66,66 +104,66 @@ app.factory("floor", function() {
 		
 		//north door
 		if(roomSet[x][y-1] != null){
-			if(roomSet[x][y-1].doors[1] == "open"){
-				roomSet[x][y].doors[0] = "open";
+			if(roomSet[x][y-1].doors.south){
+				roomSet[x][y].doors.north = true;
 			}else{
-				roomSet[x][y].doors[0] = "closed";
+				roomSet[x][y].doors.north = false;
 			}
 		}else{
-			var chance = Math.floor(2*Math.random());
+			var chance = Math.floor(Math.random());
 			if(chance){
-				roomSet[x][y].doors[0] = "closed";
+				roomSet[x][y].doors.north = true;
 			}else{
-				roomSet[x][y].doors[0] = "open";
+				roomSet[x][y].doors.north = false;
 			}
 		}
 		
 		//South door
 		if(roomSet[x][y+1] != null){
-			if(roomSet[x][y+1].doors[0] == "open"){
-				roomSet[x][y].doors[1] = "open";
+			if(roomSet[x][y+1].doors.north){
+				roomSet[x][y].doors.south = true;
 			}else{
-				roomSet[x][y].doors[1] = "closed";
+				roomSet[x][y].doors.south = false;
 			}
 		}else{
 			var chance = Math.floor(2*Math.random());
 			if(chance){
-				roomSet[x][y].doors[1] = "closed";
+				roomSet[x][y].doors.south = true;
 			}else{
-				roomSet[x][y].doors[1] = "open";
+				roomSet[x][y].doors.south = false;
 			}
 		}
 		
 		
 		//East door
 		if(roomSet[x+1][y] != null){
-			if(roomSet[x+1][y].doors[4] == "open"){
-				roomSet[x][y].doors[3] = "open";
+			if(roomSet[x+1][y].doors.west){
+				roomSet[x][y].doors.east = true;
 			}else{
-				roomSet[x][y].doors[3] = "closed";
+				roomSet[x][y].doors.east = false;
 			}
 		}else{
 			var chance = Math.floor(2*Math.random());
 			if(chance){
-				roomSet[x][y].doors[3] = "closed";
+				roomSet[x][y].doors.east = true;
 			}else{
-				roomSet[x][y].doors[3] = "open";
+				roomSet[x][y].doors.east = false;
 			}
 		}
 	
-	
+		//west door
 		if(roomSet[x-1][y] != null){
-			if(roomSet[x-1][y].doors[3] == "open"){
-				roomSet[x][y].doors[4] = "open";
+			if(roomSet[x-1][y].doors.east){
+				roomSet[x][y].doors.west = true;
 			}else{
-				roomSet[x][y].doors[4] = "closed";
+				roomSet[x][y].doors.west = false;
 			}
 		}else{
 			var chance = Math.floor(2*Math.random());
 			if(chance){
-				roomSet[x][y].doors[4] = "closed";
+				roomSet[x][y].doors.west = false;
 			}else{
-				roomSet[x][y].doors[4] = "open";
+				roomSet[x][y].doors.west = true;
 			}
 		}
 	}

@@ -41,9 +41,27 @@ app.controller("dungeonController", function($scope,$timeout,player,floor) {
 					
 				}else{
 					var x_or_y =Math.floor( Math.random()*2);
-					var plus_or_minus=Math.floor( Math.random()*2)*2-1;
-					player.location[x_or_y]+=plus_or_minus;
+					var plus_or_minus=Math.floor( Math.random()*2);
+					if(x_or_y){
+						if(plus_or_minus){
+							player.move("east");
+						}else{
+							player.move("west");
+						}						
+					}else{
+						if(plus_or_minus){
+							player.move("north");
+						}else{
+							player.move("south");
+						}
+					}
 				}
+				
+			
+			}
+			
+			if($scope.user_text.indexOf("look") >= 0){
+				$scope.results.push(player.getRoom().getInfo());
 			}
 				
 				
