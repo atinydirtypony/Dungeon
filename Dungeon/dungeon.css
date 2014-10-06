@@ -12,7 +12,10 @@
 	height:100px;
 }
 
-#box{
+#digbox {
+	display:block;
 	width:400px;
-
+	height:100px;
+	overflow:scroll;
+	font-size: 200%;
 }

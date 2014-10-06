@@ -57,7 +57,7 @@ app.factory("player", function(floor) {
 				location.y = location.y + 1;
 			}
 			this.getRoom();
-			alert("now in: " + location.x + " , " + location.y);
+			//alert("now in: " + location.x + " , " + location.y);
 		} else {
 			alert("no door");
 			return false;

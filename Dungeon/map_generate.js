@@ -65,15 +65,16 @@ var Room = function(){
 	this.getInfo = function(){
 		var info = "";
 		info = info+"This room has doors in the ";
-		dOOrs =0;
+		count =0;
 		for(direction in this.doors){
 			if(this.doors[direction]){
-				if(dOOrs.length>0){
+				if(count>0){
 					info = info + "and ";
 				}
 				
 				info = info + direction+" ";
-				dOOrs+=1;
+				count+=1;
+				//console.log(dOOrs);
 			}
 		}
 		
@@ -170,7 +171,7 @@ app.factory("floor", function() {
 	
 	this.getRoom = function(x,y) {
 		if(!this.roomCheck(x,y)){
-			alert(x + " - " + y);
+			//alert(x + " - " + y);
 			this.newRoom(x,y);
 		}
 		return roomSet[x][y];
@@ -179,7 +180,7 @@ app.factory("floor", function() {
 	
 	//check to see if a room exists
 	this.roomCheck = function(x,y){
-		alert("HERE")
+		//alert("HERE")
 		if(roomSet[x][y] != null){
 			return true;
 		}else{

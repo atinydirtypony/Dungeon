@@ -63,6 +63,7 @@ app.controller("dungeonController", function($scope,$timeout,player,floor) {
 			if($scope.user_text.indexOf("look") >= 0){
 				$scope.results.push(player.getRoom().getInfo());
 			}
+
 				
 				
 
