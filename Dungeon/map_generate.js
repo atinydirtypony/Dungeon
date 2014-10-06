@@ -8,6 +8,25 @@ var Room = function(){
 	
 	//doors (north, south, east, west)
 	this.doors = ["open","open","open","open"];
+	
+	for(i=0; i<Math.floor(Math.random()*10); i++){
+		var rand_item = Math.floor(Math.random()*1000);
+		if(rand_item<333){
+			collectables.push("dust");
+		}else if(rand_item>=334 && rand_item<667){
+			collectables.push("lint");
+		}else if(rand_item>=667 && rand_item<768){
+			collectables.push("food");
+		}else if(rand_item>=768 && rand_item<818){
+			collectables.push("drink");
+		}else if(rand_item>=818 && rand_item<845){
+			collectables.push("key");
+		}else if(rand_item>=845 && rand_item<900){
+			collectables.push("dead-baby");
+		}else if(rand_item>=900 && rand_item<999){
+			collectables.push("balloon");
+		
+	}
 
 	this.hasDoor = function(direction) {
 		if(direction == "north") {
@@ -16,7 +35,7 @@ var Room = function(){
 		if(direction =="south") {
 			return this.doors[1] == "open";
 		}
-		if(direction == "east") {
+		if(direciton == "east") {
 			return this.doors[2] == "open";
 		}
 		if(direction == "west") {
@@ -113,6 +132,7 @@ app.factory("floor", function() {
 	
 	this.getRoom = function(x,y) {
 		if(!this.roomCheck(x,y)){
+			alert(x + " - " + y);
 			this.newRoom(x,y);
 		}
 		return roomSet[x][y];
@@ -121,11 +141,14 @@ app.factory("floor", function() {
 	
 	//check to see if a room exists
 	this.roomCheck = function(x,y){
+		alert("HERE")
 		if(roomSet[x][y] != null){
 			return true;
 		}else{
 			return false;
 		}
+	
+	
 	}
 	return this;
 });

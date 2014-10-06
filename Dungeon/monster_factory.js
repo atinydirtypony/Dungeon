@@ -7,7 +7,7 @@ app.factory("monsterFactory", function() {
 	var Monster = function(monsterName, monsterType) {
 		
 		var health = 100;
-		var strength = 100;
+		var strength = Math.floor(Math.randome*100);
 		
 		this.getName = function() {
 			return monsterName;
