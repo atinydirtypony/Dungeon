@@ -14,9 +14,9 @@ app.controller("dungeonController", function($scope,$timeout,player,floor) {
 	}
 	
 	$scope.ref_user_text = function(){
-		console.log($scope.user_text);
+		//console.log($scope.user_text);
 		if(_.contains($scope.commands, $scope.user_text.split(" ")[0])) {
-			$scope.results.push("You have " + $scope.user_text + "ed!");
+			//$scope.results.push("You have " + $scope.user_text + "ed!");
 			//add's to known commands
 			
 			if(!_.contains($scope.known_commands,$scope.user_text)) {
@@ -61,16 +61,16 @@ app.controller("dungeonController", function($scope,$timeout,player,floor) {
 			}
 			
 			if($scope.user_text.indexOf("look") >= 0){
-				$scope.results.push(player.getRoom().getInfo());
+				player.outText=player.getRoom().getInfo();
 			}
 
 				
 				
 
 		} else {
-			$scope.results.push("I don't understand " + $scope.user_text );
+			player.outText="I don't understand " + $scope.user_text;
 		}
-		
+		$scope.results.push(player.outText)
 		$scope.user_text = "";
 	}
 

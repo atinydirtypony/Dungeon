@@ -101,72 +101,118 @@ app.factory("floor", function() {
 	//create new room
 	this.newRoom = function(x,y){
 		roomSet[x][y] = new Room();
-		alert("now in: " + x + " , " + y);
+		//alert("now in: " + x + " , " + y);
 		
 		//north door
 		if(roomSet[x][y-1] != null){
 			if(roomSet[x][y-1].doors.south){
 				roomSet[x][y].doors.north = true;
+				if(roomSet[x][y-1].locks.south){
+					roomSet[x][y].locks.north = true;
+				}else{
+					roomSet[x][y].locks.north = false;
+				}
 			}else{
-				roomSet[x][y].doors.north = false;
+				roomSet[x][y].locks.north = false;
+				if(roomSet[x][y-1].locks.south){
+					roomSet[x][y].locks.north = true;
+				}else{
+					roomSet[x][y].locks.north = false;
+				}
 			}
 		}else{
-			var chance = Math.floor(Math.random());
-			if(chance){
+			var chance = Math.floor(4*Math.random());
+			if(chance < 3){
 				roomSet[x][y].doors.north = true;
+				if(chance == 0){
+					roomSet[x][y].locks.north = true;
+				}else{
+					roomSet[x][y].locks.north = false;
+				}
 			}else{
 				roomSet[x][y].doors.north = false;
 			}
 		}
 		
-		//South door
+		//south door
 		if(roomSet[x][y+1] != null){
 			if(roomSet[x][y+1].doors.north){
 				roomSet[x][y].doors.south = true;
+				if(roomSet[x][y+1].locks.north){
+					roomSet[x][y].locks.south = true;
+				}else{
+					roomSet[x][y].locks.south = false;
+				}
 			}else{
-				roomSet[x][y].doors.south = false;
+				roomSet[x][y].locks.north = false;
 			}
 		}else{
-			var chance = Math.floor(2*Math.random());
-			if(chance){
+			var chance = Math.floor(4*Math.random());
+			if(chance < 3){
 				roomSet[x][y].doors.south = true;
+				if(chance == 0){
+					roomSet[x][y].locks.south = true;
+				}else{
+					roomSet[x][y].locks.south = false;
+				}
 			}else{
 				roomSet[x][y].doors.south = false;
 			}
 		}
 		
-		
-		//East door
+		//east door
 		if(roomSet[x+1][y] != null){
 			if(roomSet[x+1][y].doors.west){
 				roomSet[x][y].doors.east = true;
+				if(roomSet[x+1][y].locks.east){
+					roomSet[x][y].locks.east = true;
+				}else{
+					roomSet[x][y].locks.east = false;
+				}
 			}else{
-				roomSet[x][y].doors.east = false;
+				roomSet[x][y].locks.east = false;
 			}
 		}else{
-			var chance = Math.floor(2*Math.random());
-			if(chance){
+			var chance = Math.floor(4*Math.random());
+			if(chance < 3){
 				roomSet[x][y].doors.east = true;
+				if(chance == 0){
+					roomSet[x][y].locks.east = true;
+				}else{
+					roomSet[x][y].locks.east = false;
+				}
 			}else{
 				roomSet[x][y].doors.east = false;
 			}
 		}
-	
+		
 		//west door
 		if(roomSet[x-1][y] != null){
 			if(roomSet[x-1][y].doors.east){
 				roomSet[x][y].doors.west = true;
+				if(roomSet[x-1][y].locks.west){
+					roomSet[x][y].locks.west = true;
+				}else{
+					roomSet[x][y].locks.west = false;
+				}
 			}else{
-				roomSet[x][y].doors.west = false;
+				roomSet[x][y].locks.west = false;
 			}
 		}else{
-			var chance = Math.floor(2*Math.random());
-			if(chance){
-				roomSet[x][y].doors.west = false;
-			}else{
+			var chance = Math.floor(4*Math.random());
+			if(chance < 3){
 				roomSet[x][y].doors.west = true;
+				if(chance == 0){
+					roomSet[x][y].locks.west = true;
+				}else{
+					roomSet[x][y].locks.west = false;
+				}
+			}else{
+				roomSet[x][y].doors.west = false;
 			}
 		}
+		
+
 	}
 	
 	this.getRoom = function(x,y) {

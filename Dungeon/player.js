@@ -19,6 +19,8 @@ app.factory("player", function(floor) {
 
 	var stats = [];
 	
+	this.outText="";
+	
 	function levelUp() {
 		
 	}
@@ -59,27 +61,35 @@ app.factory("player", function(floor) {
 	}
 	
 	this.move = function(direction){
-		console.log(direction+" v: "+vitality);
-		if(this.getRoom().hasDoor(direction)) {	
-			this.statAdjust(0,0,-3);
-			if(direction == "west"){
-				location.x = location.x -1;
+		//console.log(direction+" v: "+vitality);
+		if(this.getRoom().hasDoor(direction)) {
+			if(!this.getRoom().isLocked(direction)){
+				this.statAdjust(0,0,-3);
+				if(direction == "west"){
+					location.x = location.x -1;
+					
+				}
+				if(direction == "east"){
+					location.x = location.x +1;
+				}
+				if(direction == "north"){
+					location.y = location.y -1;
+				}
+				if(direction == "south"){
+					location.y = location.y + 1;
+				}
+				this.getRoom();
+				this.outText = "You have moved "+direction+".";
+			} else {
+				this.outText = "The door is locked!"
 			}
-			if(direction == "east"){
-				location.x = location.x +1;
-			}
-			if(direction == "north"){
-				location.y = location.y -1;
-			}
-			if(direction == "south"){
-				location.y = location.y + 1;
-			}
-			this.getRoom();
+			
 			//alert("now in: " + location.x + " , " + location.y);
 		} else {
-			alert("no door");
-			return false;
+			this.outText = "You run into the wall. It hurts!";
+			this.statAdjust(-10,0,0);
 		}
+		console.log("x:"+location.x+ " y:"+location.y)
 		
 	}
 	
