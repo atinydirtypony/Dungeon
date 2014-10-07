@@ -1,21 +1,89 @@
-.player_stats div{
-	display: inline-block;
+body, html, div{
+	padding:0;
+	margin:0;
+	
 }
+.header {
+	background:#000;
+	height: 70px;
+	color:#951;
+	text-align:center;
+	font-family:fantasy;
+	border-bottom: #334 solid 4px;
+	
+}
+
+.header h1{
+	margin:0;
+	padding:0;
+	padding-top:15px;
+	
+	
+}
+
+.site_nav {
+	background-color: #DB9;
+	height:40px;
+
+	
+}
+
+body{
+	background: url(metal.jpg);
+	background-size: cover;
+	
+}
+.site_nav ul {
+	margin:0;
+	padding: 10px;
+	
+}
+.site_nav li {
+	float: left;
+	width:20%;
+	text-align:center;
+	font-family:monospace;
+	font:italic;
+	font-size: 155%;
+	list-style:none;
+}
+
+
 
 .room_info div{
 	display: inline-block;
 }
-
-#map {
-	display:inline-block;
-	width:100px;
-	height:100px;
+#attributes ul{
+	width:100%;	
+	margin-top: 30px;
+	margin-left:0;
+	padding-left:0px;
+	
 }
 
-#digbox {
+#attributes li{
+	margin:0;
+	text-align: center;
+	padding-top: 7px;
+	float:left;
+	width:20%;
+	display:block;
+	margin-left:5.66%;
+	margin-right:5.66%;
+	height:30px;
+	font-family:monospace;
+	font-size:130%;
+	border:#000 solid 8px;
+	
+	
+}
+
+
+#litterbox {
 	display:block;
 	width:400px;
 	height:100px;
 	overflow:scroll;
-	font-size: 200%;
+	font-size: 75%;
+	background:#FFF;
 }

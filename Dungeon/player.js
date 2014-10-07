@@ -28,9 +28,9 @@ app.factory("player", function(floor) {
 	}
 	
 	this.updateStats = function() {
-		stats = [{name: "Health", current: health, maximum: maximumHealth},
-		        {name: "Mana", current: mana, maximum: maximumMana},
-		        {name: "Vitality", current: vitality, maximum: maximumVitality}]
+		stats = [{name: "Health", current: health, maximum: maximumHealth, color: 'red'},
+		        {name: "Mana", current: mana, maximum: maximumMana, color: 'lime'},
+		        {name: "Vitality", current: vitality, maximum: maximumVitality, color: 'blue'}]
 	}
 
 	this.addExperience = function(exp) {

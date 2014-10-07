@@ -29,25 +29,24 @@
 			<ul>
 			
 				<li>Home</li>
-				<li>Info/About/Goal</li>
-				<li>Taco</li>
+				<li>How to Play</li>
+				<li>Monsters</li>
+				<li>Items</li>
+				<li>Account</li>
+				
 				
 			</ul>
 		
 		</div>
 		
 		<!-- Mini map which links to main map -->
-		<img id="map" src="treasure-map.jpg">
 		
 		
 		<!-- Display for player stats and vitals and abilities -->
 		<div class="player_stats">
-			<div id="attributs">
-				
-				<h2>Attributes</h2>
-				
+			<div id="attributes">
 				<ul>
-					<li ng-repeat="stat in player.getStats()">{{stat.name}}: {{stat.current}} of {{stat.maximum}}</li>
+					<li ng-repeat="stat in player.getStats()" style="background-color: {{stat.color}};">{{stat.name}}: {{stat.current}} of {{stat.maximum}}</li>
 				</ul>
 			</div>
 			
@@ -96,9 +95,12 @@
 			
 			
 			<!-- the main text box where all the action happens -->
-			<div id="box">
+			<div>
 				<h3>Shiz fo Sho</h3>
-				<p ng-repeat="result in results track by $index">{{result}}</p>
+				<div id="litterbox">
+					<p ng-repeat="result in results track by $index">{{result}}</p>
+				</div>
+				
 				<form ng-submit="ref_user_text()"><input type="text" ng-model="user_text"></input></form>
 			</div>
 		
