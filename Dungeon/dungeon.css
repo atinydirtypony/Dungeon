@@ -28,6 +28,28 @@ body, html, div{
 	
 }
 
+#abilities{
+	display:block;
+	float:left;
+	margin: 50px;
+	height:600px;
+	background: #DB9;
+	width: 250px;
+	border: black solid 4px;
+	
+}
+
+#abilities h2{
+	
+	text-align:center;
+	background: #951;
+	width:170px;
+	height:35;
+	margin-left:40px;
+	color:#EFF;
+	border:black solid 2px;
+}
+
 body{
 	background: url(metal.jpg);
 	background-size: cover;
@@ -50,9 +72,7 @@ body{
 
 
 
-.room_info div{
-	display: inline-block;
-}
+
 #attributes ul{
 	width:100%;	
 	margin-top: 30px;
@@ -81,12 +101,34 @@ body{
 	
 }
 
+.room_info{
+	display: inline-block;
+	background:#000;
+	color:#FFF;
+	height:600px;
+	margin-top: 50px;
+	width:640px;
+	
+}
+
+.room_info h2 {
+	text-align: center;
+	
+}
 
 #litterbox {
 	display:block;
-	width:400px;
-	height:100px;
+	width:600px;
+	height:400px;
 	overflow:scroll;
 	font-size: 75%;
 	background:#FFF;
+	color:#000;
+	margin-left: 20px;
+}
+
+#shit_shoot {
+	margin-left:20px;
+	margin-top:7px;
+	
 }

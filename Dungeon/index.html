@@ -63,8 +63,25 @@
 				
 				</ol>
 			</div>
+		</div>
+		
+		<!-- main area for text window -->
+		<div class="room_info">
 			
-			<!-- display the commands a user has discovered for not in battle -->
+			<h2>Room Name</h2>
+			
+			<!-- the main text box where all the action happens -->
+			<div>
+				<div id="litterbox">
+					<p ng-repeat="result in results track by $index">{{result}}</p>
+				</div>
+				
+				<form id="shit_shoot" ng-submit="ref_user_text()"><input type="text" ng-model="user_text"></input></form>
+			</div>
+		
+		</div>
+		
+		<!-- display the commands a user has discovered for not in battle -->
 			<div id="commands">
 				
 				<h2>Known Commands</h2>
@@ -75,36 +92,6 @@
 				
 			</div>
 		
-		</div>
-		
-		<!-- main area for text window -->
-		<div class="room_info">
-			
-			<h2>Room Name</h2>
-			
-			<div>
-				<!-- what the player has done recently -->
-				<h3>Recent Commands</h3>
-				<ol>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-				</ol>
-			</div>
-			
-			
-			<!-- the main text box where all the action happens -->
-			<div>
-				<h3>Shiz fo Sho</h3>
-				<div id="litterbox">
-					<p ng-repeat="result in results track by $index">{{result}}</p>
-				</div>
-				
-				<form ng-submit="ref_user_text()"><input type="text" ng-model="user_text"></input></form>
-			</div>
-		
-		</div>
 	
 	
 	</body>
