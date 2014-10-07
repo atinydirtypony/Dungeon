@@ -28,9 +28,9 @@ app.factory("player", function(floor) {
 	}
 	
 	this.updateStats = function() {
-		stats = [{name: "Health", current: health, maximum: maximumHealth, color: 'red'},
-		        {name: "Mana", current: mana, maximum: maximumMana, color: 'lime'},
-		        {name: "Vitality", current: vitality, maximum: maximumVitality, color: 'blue'}]
+		stats = [{name: "Health", current: health, maximum: maximumHealth, color: 'rgba(' + Math.floor( (health*200)/maximumHealth) + ',0,0,1)'}, //'#C80000'},
+		        {name: "Mana", current: mana, maximum: maximumMana, color: 'rgba(0,0,' + Math.floor( (mana*200)/maximumMana) + ',1)'},
+		        {name: "Vitality", current: vitality, maximum: maximumVitality, color: 'rgba(0,' + Math.floor( (vitality*200)/maximumVitality) + ',0,1)'}]
 	}
 
 	this.addExperience = function(exp) {
@@ -42,8 +42,9 @@ app.factory("player", function(floor) {
 	}
 	
 	this.move = function(direction){
-		console.log(direction);
-		if(this.getRoom().hasDoor(direction)) {			
+		console.log(direction+" v: "+vitality);
+		if(this.getRoom().hasDoor(direction)) {	
+			vitality-=1;
 			if(direction == "west"){
 				location.x = location.x -1;
 			}

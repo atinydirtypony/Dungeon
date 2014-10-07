@@ -72,8 +72,11 @@ body{
 	margin-right:5.66%;
 	height:30px;
 	font-family:monospace;
-	font-size:130%;
+	font-size:120%;
 	border:#000 solid 8px;
+	font-weight:bold;
+	color:#FFF;
+	
 	
 	
 }
