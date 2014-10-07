@@ -107,7 +107,7 @@ body{
 	color:#FFF;
 	height:600px;
 	margin-top: 50px;
-	width:640px;
+	width:65%;
 	
 }
 
@@ -118,17 +118,17 @@ body{
 
 #litterbox {
 	display:block;
-	width:600px;
+	width:96%;
 	height:400px;
 	overflow:scroll;
-	font-size: 75%;
+	font-size: 110%;
 	background:#FFF;
 	color:#000;
-	margin-left: 20px;
+	margin-left: 2%;
 }
 
 #shit_shoot {
-	margin-left:20px;
+	margin-left:2%;
 	margin-top:7px;
 	
 }

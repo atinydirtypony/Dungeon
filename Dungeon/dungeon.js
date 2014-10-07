@@ -2,7 +2,7 @@ app = angular.module("dungeonApp", []);
 			
 app.controller("dungeonController", function($scope,$timeout,player,floor) {
 	
-	$scope.commands = ["look","move","yell", "fight"];
+	$scope.commands = ["look","move","yell", "fight", "WALLS", "teleport"];
 	$scope.known_commands =[];
 	
 	$scope.results = [];
@@ -18,7 +18,6 @@ app.controller("dungeonController", function($scope,$timeout,player,floor) {
 		if(_.contains($scope.commands, $scope.user_text.split(" ")[0])) {
 			//$scope.results.push("You have " + $scope.user_text + "ed!");
 			//add's to known commands
-			
 			if(!_.contains($scope.known_commands,$scope.user_text)) {
 				$scope.known_commands.push($scope.user_text);
 			}
@@ -60,8 +59,35 @@ app.controller("dungeonController", function($scope,$timeout,player,floor) {
 			
 			}
 			
+			//look around
 			if($scope.user_text.indexOf("look") >= 0){
 				player.outText=player.getRoom().getInfo();
+			}
+			
+			if($scope.user_text.indexOf("WALLS") >= 0){
+				player.getRoom().doors.north = false;
+				player.getRoom().doors.south = false;
+				player.getRoom().doors.east = false;
+				player.getRoom().doors.west = false;
+				player.outText = "This room is now a trap...consequently you are trapped...should have thought about that first...";
+			}
+			
+			if($scope.user_text.indexOf("teleport") >= 0){
+				if($scope.user_text.indexOf("up") >= 0 || $scope.user_text.indexOf("north") >= 0){
+					player.teleport("north");
+					
+				}else if($scope.user_text.indexOf("down") >= 0 || $scope.user_text.indexOf("south") >= 0){
+					player.teleport("south");
+					
+				}else if($scope.user_text.indexOf("left") >= 0 || $scope.user_text.indexOf("west") >= 0){
+					player.teleport("west");
+					
+				}else if($scope.user_text.indexOf("right") >= 0 || $scope.user_text.indexOf("east") >= 0){
+					player.teleprt("east");
+					
+				}else{
+					player.teleport("");
+				}
 			}
 
 				
@@ -70,7 +96,7 @@ app.controller("dungeonController", function($scope,$timeout,player,floor) {
 		} else {
 			player.outText="I don't understand " + $scope.user_text;
 		}
-		$scope.results.push(player.outText)
+		$scope.results.push($scope.user_text+": "+ player.outText)
 		$scope.user_text = "";
 	}
 

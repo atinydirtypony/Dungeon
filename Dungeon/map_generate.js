@@ -1,93 +1,118 @@
-//Room Class
-var Room = function(){
-	var collectables = [];
-	var furniture = [];
-	var monsters =[];
-	var home_base = false;
-	var enemy = null;
-	
-	//doors (north, south, east, west)
-	this.doors = {north:true, south:true, east:true, west:true};
-	this.locks = {north:false, south:false, east:false, west:false};
-	
-	for(i=0; i<Math.floor(Math.random()*10); i++){
-		var rand_item = Math.floor(Math.random()*1000);
-		if(rand_item<333){
-			collectables.push("dust");
-		}else if(rand_item>=334 && rand_item<667){
-			collectables.push("lint");
-		}else if(rand_item>=667 && rand_item<768){
-			collectables.push("food");
-		}else if(rand_item>=768 && rand_item<818){
-			collectables.push("drink");
-		}else if(rand_item>=818 && rand_item<845){
-			collectables.push("key");
-		}else if(rand_item>=845 && rand_item<900){
-			collectables.push("dead-baby");
-		}else if(rand_item>=900 && rand_item<999){
-			collectables.push("balloon");
-		}
-		
-	}
 
-	this.hasDoor = function(direction) {
-		if(direction == "north") {
-			return this.doors.north;
-		}
-		if(direction =="south") {
-			return this.doors.south;
-		}
-		if(direction == "east") {
-			return this.doors.east;
-		}
-		if(direction == "west") {
-			return this.doors.west;
-		}
-	}
-	
-	this.isLocked = function(direction){
-		if(direction == "north") {
-			return this.locks.north;
-		}
-		if(direction =="south") {
-			return this.locks.south;
-		}
-		if(direction == "east") {
-			return this.locks.east;
-		}
-		if(direction == "west") {
-			return this.locks.west;
-		}
-		
-	}
-	
-	
-	this.getInfo = function(){
-		var info = "";
-		info = info+"This room has doors in the ";
-		count =0;
-		for(direction in this.doors){
-			if(this.doors[direction]){
-				if(count>0){
-					info = info + "and ";
-				}
-				
-				info = info + direction+" ";
-				count+=1;
-				//console.log(dOOrs);
-			}
-		}
-		
-		
-		return info;
-	}
-		
-	
-}
 
 
 //Floor Class
 app.factory("floor", function() {
+	
+	//Room Definition
+	var Room = function(){
+		var collectables = [];
+		var furniture = [];
+		var monsters =[];
+		var home_base = false;
+		var enemy = null;
+		
+		//doors (north, south, east, west)
+		this.doors = {north:true, south:true, east:true, west:true};
+		this.locks = {north:false, south:false, east:false, west:false};
+		
+		
+		for(i=0; i<Math.floor(Math.random()*10); i++){
+			var rand_item = Math.floor(Math.random()*1000);
+			if(rand_item<333){
+				collectables.push("dust");
+			}else if(rand_item>=334 && rand_item<667){
+				collectables.push("lint");
+			}else if(rand_item>=667 && rand_item<768){
+				collectables.push("food");
+			}else if(rand_item>=768 && rand_item<818){
+				collectables.push("drink");
+			}else if(rand_item>=818 && rand_item<845){
+				collectables.push("key");
+			}else if(rand_item>=845 && rand_item<900){
+				collectables.push("dead-baby");
+			}else if(rand_item>=900 && rand_item<999){
+				collectables.push("balloon");
+			}
+			
+		}
+		
+		this.nextRoomOver =function(direction){
+			if(direction = "north"){
+				return roomSet[x][y-1];
+				
+			}
+			if(direction = "south"){
+				return roomSet[x][y+1];
+				
+			}
+			if(direction = "east"){
+				return roomSet[+-1][y];
+				
+			}
+			if(direction = "west"){
+				return roomSet[x-1][y];
+				
+			}
+		}
+
+		this.hasDoor = function(direction) {
+			if(direction == "north") {
+				return this.doors.north;
+			}
+			if(direction =="south") {
+				return this.doors.south;
+			}
+			if(direction == "east") {
+				return this.doors.east;
+			}
+			if(direction == "west") {
+				return this.doors.west;
+			}
+		}
+		
+		this.isLocked = function(direction){
+			if(direction == "north") {
+				return this.locks.north;
+			}
+			if(direction =="south") {
+				return this.locks.south;
+			}
+			if(direction == "east") {
+				return this.locks.east;
+			}
+			if(direction == "west") {
+				return this.locks.west;
+			}
+			
+		}
+		
+		
+		this.getInfo = function(){
+			var info = "";
+			info = info+"This room has doors in the ";
+			count =0;
+			for(direction in this.doors){
+				if(this.doors[direction]){
+					if(count>0){
+						info = info + "and ";
+					}
+					
+					info = info + direction+" ";
+					count+=1;
+					//console.log(dOOrs);
+				}
+			}
+			if( count == 0 ){
+				info = "There are no fucking doors! How the hell did you get in here?"
+			}
+			
+			
+			return info;
+		}
+			
+		
+	}
 
 	var roomSet = new Array();
 	for(i=0;i<2000;i++){

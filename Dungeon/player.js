@@ -93,6 +93,24 @@ app.factory("player", function(floor) {
 		
 	}
 	
+	this.teleport = function(direction){
+		if(direction == "west"){
+			location.x = location.x -1;
+		}else if(direction == "east"){
+			location.x = location.x +1;
+		}else if(direction == "north"){
+			location.y = location.y -1;
+		}else if(direction == "south"){
+			location.y = location.y + 1;
+		}else{
+			location.x=location.x + Math.floor(Math.random()*21)-10;
+			location.y=location.y + Math.floor(Math.random()*21)-10;
+		}
+		this.getRoom();
+		this.outText = "You have teleported!";
+		this.statAdjust(0,-50,0);
+	}
+	
 	this.updateStats();
 	
 	return this;
