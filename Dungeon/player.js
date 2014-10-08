@@ -165,6 +165,9 @@ app.factory("player", function(floor) {
 		});
 		var index=_.indexOf(names,item);
 		inventory[type][index].use(this);
+		if(inventory[type][index].checkExpire()){
+			inventory[type].splice(index, 1);
+		}
 	}
 	
 	this.getLocation = function(){

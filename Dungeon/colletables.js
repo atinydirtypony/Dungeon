@@ -1,29 +1,37 @@
 app.factory("collectablesFactory", function() {
 	
 	
-	var healHealth=function(player){
-		if(this.n == null){
-			this.n=0;
+	var healHealth = function(n){
+		if(n == null){
+			n=0;
 		}
-		console.log(this.n);
-		player.statAdjust(n,0,0);
+		return function(player){
+			//console.log(n);
+			player.statAdjust(n,0,0);
+			
+		}
 	}
 	
-	var healMana=function(player){
-		if(this.n == null){
-			this.n=0;
+	var healMana = function(n){
+		if(n == null){
+			n=0;
 		}
-		console.log(this.n);
-		player.statAdjust(0,n,0);
+		return function(player){
+			//console.log(n);
+			player.statAdjust(0,n,0);
+			
+		}
 	}
 	
-	var healVitality=function(player){
-		if(this.n == null){
-			this.n=0;
+	var healVitality = function(n){
+		if(n == null){
+			n=0;
 		}
-		console.log(this.n);
-		player.statAdjust(0,0,n);
-		
+		return function(player){
+			//console.log(n);
+			player.statAdjust(0,0,n);
+			
+		}
 	}
 	
 	var unlockDoor=function(player){
@@ -125,38 +133,38 @@ app.factory("collectablesFactory", function() {
 		
 		if(chance == 0){
 			core.name = "Health Potion";
-			core.functions.push(healHealth);
-			core.functions[0].n = Math.floor(Math.random()*50)+1;
-			if(core.functions[0].n<15){
+			var intensity = Math.floor(Math.random()*50)+1;
+			core.functions.push(healHealth(intensity));
+			if(intensity<15){
 				core.name = "Lesser "+core.name;
-			}else if(core.functions[0].n>35){
+			}else if(intensity>35){
 				core.name = "Greater "+core.name;
 			}
 		}
 		
 		if(chance == 1){
 			core.name = "Mana Potion";
-			core.functions.push(healMana);
-			core.functions[0].n = Math.floor(Math.random()*50)+1;
-			if(core.functions[0].n<15){
+			var intensity = Math.floor(Math.random()*50)+1;
+			core.functions.push(healMana(intensity));
+			if(intensity<15){
 				core.name = "Lesser "+core.name;
-			}else if(core.functions[0].n>35){
+			}else if(intensity>35){
 				core.name = "Greater "+core.name;
 			}
 		}
 		
 		if(chance == 2){
 			core.name = "Vitality Potion";
-			core.functions.push(healVitality);
-			core.functions[0].n = Math.floor(Math.random()*50)+1;
-			if(core.functions[0].n<15){
+			var intensity = Math.floor(Math.random()*50)+1;
+			core.functions.push(healVitality(intensity));
+			if(intensity<15){
 				core.name = "Lesser "+core.name;
-			}else if(core.functions[0].n>35){
+			}else if(intensity>35){
 				core.name = "Greater "+core.name;
 			}
 		}
 		
-		console.log(core.functions[0] + "-------------"+ core.functions[0].n);
+		//console.log(core.functions[0] + "-------------"+ core.functions[0].n);
 		return core;
 	}
 	
