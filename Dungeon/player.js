@@ -114,17 +114,23 @@ app.factory("player", function(floor) {
 	}
 	
 	this.getInventory = function(){
-		this.outText="You have ";
-		var list = _.pairs(inventory);
-		_each(list, function(grouping){
-			outText = outText+grouping[1].length+" "+grouping[0]+"s "
-		});
+		var list = _.flatten(_.pairs(inventory), true);
+		this.outText = "You have ";
+		console.log(list);
+		for(i=0;i<list.length; i++){
+			if(i%2){
+				this.outText+= list[i]+"s: ";
+			}else{
+				this.outText+= list[i].length+"   ";
+			}
+			
+		}
 	}
 	
 	this.addToInventory= function(item){
 		
 		if(inventory[item.type] != null){
-			inventory[item.type].push[item]
+			inventory[item.type].push(item);
 		}else{
 			inventory[item.type]=[];
 			inventory[item.type].push(item);

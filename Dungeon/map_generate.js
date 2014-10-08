@@ -82,7 +82,7 @@ app.factory("floor", function(collectablesFactory) {
 			_.each(collectables,function(item){
 				names.push(item.name);
 			});
-			
+			console.log(names);
 			if(_.indexOf(names,name)>=0){
 				return {state:true, location:_.indexOf(names,name)};
 			}else{
@@ -93,7 +93,7 @@ app.factory("floor", function(collectablesFactory) {
 		
 		this.takeItem = function(index){
 			var gift = collectables[index];
-			collectables = collectables.splice(index, 1);
+			collectables.splice(index, 1);
 			return gift;
 			
 		}

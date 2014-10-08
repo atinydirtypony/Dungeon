@@ -2,7 +2,7 @@ app = angular.module("dungeonApp", []);
 			
 app.controller("dungeonController", function($scope,$timeout,player,floor) {
 	
-	$scope.commands = ["look","move","yell", "fight", "WALLS", "teleport", "pick", "up"];
+	$scope.commands = ["look","move","yell", "fight", "WALLS", "teleport", "pick", "up", "inventory"];
 	$scope.known_commands =[];
 	
 	$scope.results = [];
@@ -94,6 +94,7 @@ app.controller("dungeonController", function($scope,$timeout,player,floor) {
 			//console.log($scope.user_text);
 			if($scope.user_text.indexOf("pick") >= 0 && $scope.user_text.indexOf("up") >=0){
 				item = $scope.user_text.replace("pick up ", "");
+				console.log(item);
 				item_info=player.getRoom().hasItem(item);
 				if(item_info.state){
 					player.addToInventory(player.getRoom().takeItem(item_info.location));
@@ -102,6 +103,10 @@ app.controller("dungeonController", function($scope,$timeout,player,floor) {
 					player.outText= "There is no "+item+ " in this room!"; 
 				}
 				
+			}
+			
+			if($scope.user_text.indexOf("inventory") >= 0){
+				player.getInventory();
 			}
 				
 				
