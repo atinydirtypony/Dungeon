@@ -77,6 +77,27 @@ app.factory("floor", function(collectablesFactory) {
 			
 		}
 		
+		this.hasItem=function(name){
+			var names= [];
+			_.each(collectables,function(item){
+				names.push(item.name);
+			});
+			
+			if(_.indexOf(names,name)>=0){
+				return {state:true, location:_.indexOf(names,name)};
+			}else{
+				return {state:false};
+			}
+			
+		}
+		
+		this.takeItem = function(index){
+			var gift = collectables[index];
+			collectables = collectables.splice(index, 1);
+			return gift;
+			
+		}
+		
 		
 		this.getInfo = function(){
 			var info = "";

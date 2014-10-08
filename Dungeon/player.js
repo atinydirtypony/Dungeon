@@ -21,7 +21,7 @@ app.factory("player", function(floor) {
 	
 	this.outText="";
 	
-	var inventory =[];
+	var inventory ={};
 	
 	function levelUp() {
 		
@@ -111,6 +111,25 @@ app.factory("player", function(floor) {
 		this.getRoom();
 		this.outText = "You have teleported!";
 		this.statAdjust(0,-50,0);
+	}
+	
+	this.getInventory = function(){
+		this.outText="You have ";
+		var list = _.pairs(inventory);
+		_each(list, function(grouping){
+			outText = outText+grouping[1].length+" "+grouping[0]+"s "
+		});
+	}
+	
+	this.addToInventory= function(item){
+		
+		if(inventory[item.type] != null){
+			inventory[item.type].push[item]
+		}else{
+			inventory[item.type]=[];
+			inventory[item.type].push(item);
+		}
+		
 	}
 	
 	this.updateStats();
