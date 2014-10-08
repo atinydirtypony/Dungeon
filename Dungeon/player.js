@@ -115,10 +115,11 @@ app.factory("player", function(floor) {
 	
 	this.getInventory = function(){
 		var list = _.flatten(_.pairs(inventory), true);
-		this.outText = "You have ";
-		console.log(list);
+		this.outText = "You have===>   ";
+		console.log(list.length);
 		for(i=0;i<list.length; i++){
-			if(i%2){
+			//console.log(i+"  "+list[i]+"   lengeth:"+list[i].length)
+			if(i%2 == 0){
 				this.outText+= list[i]+"s: ";
 			}else{
 				this.outText+= list[i].length+"   ";
@@ -128,7 +129,7 @@ app.factory("player", function(floor) {
 	}
 	
 	this.addToInventory= function(item){
-		
+		console.log(item.functions);
 		if(inventory[item.type] != null){
 			inventory[item.type].push(item);
 		}else{
@@ -136,6 +137,38 @@ app.factory("player", function(floor) {
 			inventory[item.type].push(item);
 		}
 		
+	}
+	
+	this.hasItem=function(name){
+		var names= [];
+		var types =[];
+		_.each(inventory,function(group){
+			_.each(group,function(item){
+			names.push(item.name);
+			types.push(item.type);
+			});
+		});
+		//console.log(names);
+		if(_.indexOf(names,name)>=0){
+			return {state:true, type:types[_.indexOf(names,name)]};
+		}else{
+			return {state:false};
+		}
+		
+		
+	}
+		
+	this.useItem=function(type, item){
+		var names=[];
+		_.each(inventory[type], function(slot){
+			names.push(slot.name);
+		});
+		var index=_.indexOf(names,item);
+		inventory[type][index].use(this);
+	}
+	
+	this.getLocation = function(){
+		return location
 	}
 	
 	this.updateStats();

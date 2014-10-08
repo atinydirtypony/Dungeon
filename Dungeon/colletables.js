@@ -1,29 +1,41 @@
 app.factory("collectablesFactory", function() {
 	
 	
-	var healHealth=function(n, player){
-		this.n=0;
+	var healHealth=function(player){
+		if(this.n == null){
+			this.n=0;
+		}
+		console.log(this.n);
 		player.statAdjust(n,0,0);
 	}
 	
 	var healMana=function(player){
-		this.n=0;
+		if(this.n == null){
+			this.n=0;
+		}
+		console.log(this.n);
 		player.statAdjust(0,n,0);
 	}
 	
 	var healVitality=function(player){
-		this.n=0;
+		if(this.n == null){
+			this.n=0;
+		}
+		console.log(this.n);
 		player.statAdjust(0,0,n);
 		
 	}
 	
 	var unlockDoor=function(player){
 		direction =prompt("Which direction?");
+		place =player.getLocation();
 		if(direction == "north"){
 			//north lock
 			if(player.getRoom().doors.north){
 				player.getRoom().locks.north = !player.getRoom().locks.north;
-				player.getRoom().nextRoomOver(north).locks.south = !player.getRoom().nextRoomOver(north).locks.south;
+				if(player.getRoom().nextRoomOver("north",place.x,place.y) != null){
+					player.getRoom().nextRoomOver("north",place.x,place.y).locks.south = !player.getRoom().nextRoomOver("north",place.x,place.y).locks.south;
+				}
 				player.outText = "***CLICK***"
 			}else{
 				player.outText="Ummmm...sooooo...you can't lock a wall. Just thought you should know that."
@@ -35,7 +47,9 @@ app.factory("collectablesFactory", function() {
 			//south lock
 			if(player.getRoom().doors.south){
 				player.getRoom().locks.south = !player.getRoom().locks.south;
-				player.getRoom().nextRoomOver(south).locks.north = !player.getRoom().nextRoomOver(south).locks.north;
+				if(player.getRoom().nextRoomOver("south",place.x,place.y) != null){
+					player.getRoom().nextRoomOver("south",place.x,place.y).locks.north = !player.getRoom().nextRoomOver("south",place.x,place.y).locks.north;
+				}
 				player.outText = "***CLICK***"
 			}else{
 				player.outText="Ummmm...sooooo...you can't lock a wall. Just thought you should know that."
@@ -47,7 +61,9 @@ app.factory("collectablesFactory", function() {
 			//east lock
 			if(player.getRoom().doors.east){
 				player.getRoom().locks.east = !player.getRoom().locks.east;
-				player.getRoom().nextRoomOver(east).locks.west = !player.getRoom().nextRoomOver(east).locks.west;
+				if(player.getRoom().nextRoomOver("east",place.x,place.y) != null){
+					player.getRoom().nextRoomOver("east",place.x,place.y).locks.west = !player.getRoom().nextRoomOver("east",place.x,place.y).locks.west;
+				}
 				player.outText = "***CLICK***"
 			}else{
 				player.outText="Ummmm...sooooo...you can't lock a wall. Just thought you should know that."
@@ -59,7 +75,9 @@ app.factory("collectablesFactory", function() {
 			//west lock
 			if(player.getRoom().doors.west){
 				player.getRoom().locks.west = !player.getRoom().locks.west;
-				player.getRoom().nextRoomOver(west).locks.east = !player.getRoom().nextRoomOver(west).locks.east;
+				if(player.getRoom().nextRoomOver("west",place.x,place.y) != null){
+					player.getRoom().nextRoomOver("west",place.x,place.y).locks.east = !player.getRoom().nextRoomOver("west",place.x,place.y).locks.east;
+				}
 				player.outText = "***CLICK***"
 			}else{
 				player.outText="Ummmm...sooooo...you can't lock a wall. Just thought you should know that."
@@ -81,7 +99,7 @@ app.factory("collectablesFactory", function() {
 		
 		this.use = function(player){
 			uses-=1;
-			_.each(functions,function(doIt){
+			_.each(this.functions,function(doIt){
 				doIt(player);
 			});
 		}
@@ -138,7 +156,7 @@ app.factory("collectablesFactory", function() {
 			}
 		}
 		
-		
+		console.log(core.functions[0] + "-------------"+ core.functions[0].n);
 		return core;
 	}
 	

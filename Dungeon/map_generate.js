@@ -27,7 +27,7 @@ app.factory("floor", function(collectablesFactory) {
 			
 		}
 		
-		this.nextRoomOver =function(direction){
+		this.nextRoomOver =function(direction,x,y){
 			if(direction = "north"){
 				return roomSet[x][y-1];
 				
@@ -82,7 +82,7 @@ app.factory("floor", function(collectablesFactory) {
 			_.each(collectables,function(item){
 				names.push(item.name);
 			});
-			console.log(names);
+			//console.log(names);
 			if(_.indexOf(names,name)>=0){
 				return {state:true, location:_.indexOf(names,name)};
 			}else{
