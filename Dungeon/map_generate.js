@@ -2,7 +2,7 @@
 
 
 //Floor Class
-app.factory("floor", function() {
+app.factory("floor", function(collectablesFactory) {
 	
 	//Room Definition
 	var Room = function(){
@@ -19,20 +19,10 @@ app.factory("floor", function() {
 		
 		for(i=0; i<Math.floor(Math.random()*10); i++){
 			var rand_item = Math.floor(Math.random()*1000);
-			if(rand_item<333){
-				collectables.push("dust");
-			}else if(rand_item>=334 && rand_item<667){
-				collectables.push("lint");
-			}else if(rand_item>=667 && rand_item<768){
-				collectables.push("food");
-			}else if(rand_item>=768 && rand_item<818){
-				collectables.push("drink");
-			}else if(rand_item>=818 && rand_item<845){
-				collectables.push("key");
-			}else if(rand_item>=845 && rand_item<900){
-				collectables.push("dead-baby");
-			}else if(rand_item>=900 && rand_item<999){
-				collectables.push("balloon");
+			if(rand_item<500){
+				collectables.push(collectablesFactory.createPotion());
+			}else{
+				collectables.push(collectablesFactory.createKey())
 			}
 			
 		}
@@ -107,6 +97,16 @@ app.factory("floor", function() {
 				info = "There are no fucking doors! How the hell did you get in here?"
 			}
 			
+			info = info + " This room also has";
+			
+			if(collectables.length == 0){
+				info = info + " nothing else sucker!"
+			}else{
+				_.each(collectables, function(collectable){
+					info = info + " a "+ collectable.name;
+					
+				})
+			}
 			
 			return info;
 		}

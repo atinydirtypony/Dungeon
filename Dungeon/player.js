@@ -21,6 +21,8 @@ app.factory("player", function(floor) {
 	
 	this.outText="";
 	
+	var inventory =[];
+	
 	function levelUp() {
 		
 	}
