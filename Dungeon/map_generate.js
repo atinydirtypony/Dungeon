@@ -20,9 +20,11 @@ app.factory("floor", function(collectablesFactory) {
 		for(i=0; i<Math.floor(Math.random()*10); i++){
 			var rand_item = Math.floor(Math.random()*1000);
 			if(rand_item<500){
-				collectables.push(collectablesFactory.createPotion());
+				collectables.push(collectablesFactory.createDrink());
+			}else if(rand_item>=500 && rand_item<900){
+				collectables.push(collectablesFactory.createKey());
 			}else{
-				collectables.push(collectablesFactory.createKey())
+				collectables.push(collectablesFactory.createPotion());
 			}
 			
 		}
