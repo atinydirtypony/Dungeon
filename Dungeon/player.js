@@ -129,7 +129,7 @@ app.factory("player", function(floor) {
 	}
 	
 	this.addToInventory= function(item){
-		console.log(item.functions);
+		//console.log(item.functions);
 		if(inventory[item.type] != null){
 			inventory[item.type].push(item);
 		}else{
@@ -156,6 +156,14 @@ app.factory("player", function(floor) {
 		}
 		
 		
+	}
+	
+	this.invList=function(type){
+		this.outText="In "+type+"s you have: "
+		_.each(inventory[type], function(item){
+			this.outText+=item.name+", "
+			
+		});
 	}
 		
 	this.useItem=function(type, item){

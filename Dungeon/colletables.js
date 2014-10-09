@@ -217,7 +217,7 @@ app.factory("collectablesFactory", function() {
 		core.name = names[key1][key2];
 		core.type= "drink";
 		core.functions.push(healVitality(5*key1+1+Math.floor(Math.random()*9)));
-		core.functions.push(healMana(5*key1+1+Math.floor(Math.random()*9)));
+		core.functions.push(healMana(5*key2+1+Math.floor(Math.random()*9)));
 		
 		var size = Math.floor(Math.random()*100);
 		if(size<84){
@@ -237,6 +237,59 @@ app.factory("collectablesFactory", function() {
 		return core;
 	}
 	
+	this.createFood = function(){
+		var names = [["chicken nugget", "chicken breast", "whole roast chicken", "leviathan fillet"],
+		             ["slider","ham sandwich","turkey panini","9-headed hydra steak"],
+		             ["soy-kale nugget","grilled-cheese sandwich","pheonix egg omlet","kracken fillet"],
+		             ["dragon nugget","dragon burger", "dragon ribs","dragon steak"]];
+		
+		var key1 = Math.floor(Math.random()*100);
+		if(key1<50){
+			key1=0;
+		}else if(key1>=50 && key1<80){
+			key1=1;
+		}else if(key1>=80 && key1<95){
+			key1=2;
+		}else{
+			key1=3;
+		}
+		
+		var key2 = Math.floor(Math.random()*100);
+		if(key2<50){
+			key2=0;
+		}else if(key2>=50 && key2<80){
+			key2=1;
+		}else if(key2>=80 && key2<95){
+			key2=2;
+		}else{
+			key2=3;
+		}
+		
+		var core = new item();
+		
+		core.name = names[key1][key2];
+		core.type= "food";
+		var k1_intenisty=
+		core.functions.push(healVitality(5*key1+1+Math.floor(Math.random()*9)));
+		core.functions.push(healHealth(5*key2+1+Math.floor(Math.random()*9)));
+		
+		var size = Math.floor(Math.random()*100);
+		if(size<84){
+			core.changeUses(1);
+			core.name= "small "+core.name;
+		}else if(size>=84 && size<94){
+			core.changeUses(2);
+			core.name= "medium "+core.name;
+		}else if(size>=94 && size<99){
+			core.changeUses(3);
+			core.name ="large "+core.name;
+		}else{
+			core.changeUses(4);
+			core.name ="family sized "+core.name;
+		}
+		
+		return core;
+	}
 	
 	return this;
 

@@ -17,11 +17,13 @@ app.factory("floor", function(collectablesFactory) {
 		this.locks = {north:false, south:false, east:false, west:false};
 		
 		
-		for(i=0; i<Math.floor(Math.random()*10); i++){
+		for(i=0; i<Math.floor(10-Math.sqrt( Math.random()*100)); i++){
 			var rand_item = Math.floor(Math.random()*1000);
-			if(rand_item<500){
+			if(rand_item<350){
 				collectables.push(collectablesFactory.createDrink());
-			}else if(rand_item>=500 && rand_item<900){
+			}else if(rand_item>=350 && rand_item<700){
+				collectables.push(collectablesFactory.createFood());
+			}else if(rand_item>=700 && rand_item<900){
 				collectables.push(collectablesFactory.createKey());
 			}else{
 				collectables.push(collectablesFactory.createPotion());
