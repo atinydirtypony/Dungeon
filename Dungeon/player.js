@@ -116,7 +116,7 @@ app.factory("player", function(floor) {
 	this.getInventory = function(){
 		var list = _.flatten(_.pairs(inventory), true);
 		this.outText = "You have===>   ";
-		console.log(list.length);
+		//console.log(list.length);
 		for(i=0;i<list.length; i++){
 			//console.log(i+"  "+list[i]+"   lengeth:"+list[i].length)
 			if(i%2 == 0){
@@ -160,10 +160,12 @@ app.factory("player", function(floor) {
 	
 	this.invList=function(type){
 		this.outText="In "+type+"s you have: "
-		_.each(inventory[type], function(item){
-			this.outText+=item.name+", "
-			
-		});
+		for(i=0;i<inventory[type].length; i++){
+			this.outText+= inventory[type][i].name
+			if((i+1) != inventory[type].length){
+				this.outText+=", "
+			}
+		}
 	}
 		
 	this.useItem=function(type, item){
