@@ -68,9 +68,9 @@
 		</div>
 		
 		<!-- main area for text window -->
-		<div class="room_info">
+		<div class="room_info" style="background: {{player.getRoom().color}}" >
 			
-			<h2>{{player.getRoom().getName()}}</h2>
+			<h2 style ="color: {{player.getRoom().fontColor}}">{{player.getRoom().getName()}}</h2>
 			
 			<!-- the main text box where all the action happens -->
 			<div>

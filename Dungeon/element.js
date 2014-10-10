@@ -18,7 +18,10 @@ var element = function(id, rooms, monstersNames, descript, colorhex){
 	
 	this.getDescriptor = function(){return _.sample(descriptors);}
 	
-	this.getColor = function(){return color;}
+	this.getColor = function(){
+		console.log(color)
+		return "#"+color;
+		}
 	
 	elements[name]=this;
 }
@@ -49,9 +52,9 @@ var undead = new element( "undead", [ "Graveyard", "Morgue", "Haunted House"], {
 var sylven = new element( "sylven", [ "Toadstool Ring", "Mystic Pond", "Magic Forest"], {fighter: "Faun", balanced: "Erlking", sensor: "Nymph" , mental: "Pixie"}, [ "Fey", "Elfin", "Whimsical"], "FFCCFF");
 var alien = new element( "alien", [ "Spaceship", "Flying Saucer", "Space Station"], {fighter: "Reptoids" , balanced: "Tentacle Monster" , sensor: "Taco" , mental: "Little Green Men" }, [ "Tentacular", "Strange", "Unusual"], "9999FF");
 
-console.log(_.keys(elements));
-_.each(elements, function(thing){
+//console.log(_.keys(elements));
+/*_.each(elements, function(thing){
 	
 	console.log(thing.getRoom());
-});
+});*/
 //console.log(elements.fire.getRoom());

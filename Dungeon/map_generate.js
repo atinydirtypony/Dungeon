@@ -11,6 +11,7 @@ app.factory("floor", function(collectablesFactory) {
 		var monsters =[];
 		var home_base = false;
 		var enemy = null;
+		var type = [];
 		var type1 = _.sample(elements);
 		var type2 =_.sample(elements);
 		while(type1 == type2){
@@ -18,6 +19,9 @@ app.factory("floor", function(collectablesFactory) {
 		}
 		
 		var name = type2.getDescriptor()+" "+type1.getRoom();
+		
+		this.fontColor = type2.getColor();
+		this.color = type1.getColor();
 		
 		//doors (north, south, east, west)
 		this.doors = {north:true, south:true, east:true, west:true};
@@ -73,6 +77,10 @@ app.factory("floor", function(collectablesFactory) {
 			if(direction == "west") {
 				return this.doors.west;
 			}
+		}
+		
+		this.getTypes =function(){
+			return [type1, type2];
 		}
 		
 		this.isLocked = function(direction){
