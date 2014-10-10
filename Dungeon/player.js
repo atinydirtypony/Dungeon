@@ -19,8 +19,6 @@ app.factory("player", function(floor) {
 
 	var stats = [];
 	
-	this.outText="";
-	
 	var inventory ={};
 	
 	function levelUp() {
@@ -64,6 +62,7 @@ app.factory("player", function(floor) {
 	
 	this.move = function(direction){
 		//console.log(direction+" v: "+vitality);
+		var result;
 		if(this.getRoom().hasDoor(direction)) {
 			if(!this.getRoom().isLocked(direction)){
 				this.statAdjust(0,0,-3);
@@ -81,17 +80,18 @@ app.factory("player", function(floor) {
 					location.y = location.y + 1;
 				}
 				this.getRoom();
-				this.outText = "You have moved "+direction+".";
+				result = "You have moved "+direction+".";
 			} else {
-				this.outText = "The door is locked!"
+				result = "The door is locked!";
 			}
 			
 			//alert("now in: " + location.x + " , " + location.y);
 		} else {
-			this.outText = "You run into the wall. It hurts!";
+			result = "You run into the wall. It hurts!";
 			this.statAdjust(-10,0,0);
 		}
 		console.log("x:"+location.x+ " y:"+location.y)
+		return result;
 		
 	}
 	
@@ -109,23 +109,23 @@ app.factory("player", function(floor) {
 			location.y=location.y + Math.floor(Math.random()*21)-10;
 		}
 		this.getRoom();
-		this.outText = "You have teleported!";
 		this.statAdjust(0,-50,0);
+		return "You have teleported!";
 	}
 	
 	this.getInventory = function(){
 		var list = _.flatten(_.pairs(inventory), true);
-		this.outText = "You have===>   ";
+		var result = "You have===>   ";
 		//console.log(list.length);
 		for(i=0;i<list.length; i++){
 			//console.log(i+"  "+list[i]+"   lengeth:"+list[i].length)
 			if(i%2 == 0){
-				this.outText+= list[i]+"s: ";
+				result += list[i]+"s: ";
 			}else{
-				this.outText+= list[i].length+"   ";
-			}
-			
+				result += list[i].length+"   ";
+			}	
 		}
+		return result;
 	}
 	
 	this.addToInventory= function(item){
@@ -154,18 +154,17 @@ app.factory("player", function(floor) {
 		}else{
 			return {state:false};
 		}
-		
-		
 	}
 	
 	this.invList=function(type){
-		this.outText="In "+type+"s you have: "
+		var result ="In "+type+"s you have: "
 		for(i=0;i<inventory[type].length; i++){
-			this.outText+= inventory[type][i].name
+			result += inventory[type][i].name
 			if((i+1) != inventory[type].length){
-				this.outText+=", "
+				result +=", "
 			}
 		}
+		return result;
 	}
 		
 	this.useItem=function(type, item){

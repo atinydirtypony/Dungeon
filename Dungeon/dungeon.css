@@ -121,10 +121,10 @@ body{
 	width:96%;
 	height:400px;
 	overflow:scroll;
-	font-size: 110%;
+	/*font-size: 110%;
 	background:#FFF;
-	color:#000;
-	margin-left: 2%;
+	color:#000;*/
+	margin-left: 5px;
 }
 
 #shit_shoot {
