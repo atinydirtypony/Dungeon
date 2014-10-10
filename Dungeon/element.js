@@ -54,7 +54,7 @@ var air = new element( "air", ["Wind Tunnel", "Sky Tower", "Solid Clouds"], {fig
 elements.air.setCross(["earth", "machine", "water", "air"],[2,2,0.5,0.5]);
 
 
-var light = new element("light", [ "Church", "Meditation Circle" , "Chapple"],{fighter:"Monk" , balanced:"Angel" , sensor:"Saint" , mental:"Priest" }, [ "Holy" , "Anointed" , "Blessed" ], "FFFFCC");
+var light = new element("light", [ "Church", "Meditation Circle" , "Chapel"],{fighter:"Monk" , balanced:"Angel" , sensor:"Saint" , mental:"Priest" }, [ "Holy" , "Anointed" , "Blessed" ], "FFFFCC");
 elements.light.setCross(["shadow", "light"],[2,0.5]);
 
 
