@@ -11,6 +11,13 @@ app.factory("floor", function(collectablesFactory) {
 		var monsters =[];
 		var home_base = false;
 		var enemy = null;
+		var type1 = _.sample(elements);
+		var type2 =_.sample(elements);
+		while(type1 == type2){
+			type2 =_.sample(elements);
+		}
+		
+		var name = type2.getDescriptor()+" "+type1.getRoom();
 		
 		//doors (north, south, east, west)
 		this.doors = {north:true, south:true, east:true, west:true};
@@ -29,6 +36,9 @@ app.factory("floor", function(collectablesFactory) {
 				collectables.push(collectablesFactory.createPotion());
 			}
 			
+		}
+		this.getName = function(){
+			return name;
 		}
 		
 		this.nextRoomOver =function(direction,x,y){
