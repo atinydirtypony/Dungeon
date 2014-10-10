@@ -18,6 +18,10 @@ app.factory("floor", function(collectablesFactory) {
 			type2 =_.sample(elements);
 		}
 		
+		this.getCollectables = function() {
+			return collectables;
+		}
+		
 		var name = type2.getDescriptor()+" "+type1.getRoom();
 		
 		this.fontColor = type2.getColor();

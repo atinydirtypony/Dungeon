@@ -7,14 +7,22 @@ app.factory("terminal", function(player) {
 	var commands = ["look","move","yell", "fight", "WALLS", "teleport", "pick up", "up", "inventory", "use", "list"];
 	
 	var autoComplete = function(terminal, string, callback) {
+		var current = terminal.get_command();
+		console.log("CURRENT" + current);
 		var options = commands.slice(0);
-		options.push("move north");
-		options.push("move south");
-		options.push("move east");
-		options.push("move west");
-		/*options = _.filter(options, function(command) {
-			return command.indexOf(string) == 0;
-		});*/
+		if(current.trim().indexOf(" ") >0) {
+			options = [];
+		}
+		if(current.split(" ")[0] == "move") {
+			options = ["north","south","east","west"];
+		}
+		if(current.indexOf("pick up") >= 0) {
+			var items= [];
+			_.each(player.getRoom().getCollectables(),function(collectable) {
+				items.push(collectable.name);
+			});
+			options = items;
+		}
 		callback(options);
 	}
 	
