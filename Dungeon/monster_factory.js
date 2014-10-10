@@ -1,13 +1,14 @@
 app.factory("monsterFactory", function() {
-
-	var monsterNames = ["Bob","Sam","Lars","Frank","Tom","Steve","Slutzor"];
 	
-	var monsterTypes = ["Toe Jam","Whale","Sloth"];
+	mosters={};
 	
-	var Monster = function(monsterName, monsterType) {
+	var monster = function() {
+		var name ="";
+		var level = Math.floor(Math.random()*20)+1;
+		var maxhealth = 10*level;
+		var strength = 2*level+Math.floor(Math.random()*5);
 		
-		var health = 100;
-		var strength = Math.floor(Math.random()*100)+1;
+		
 		
 		this.getName = function() {
 			return monsterName;
@@ -25,7 +26,7 @@ app.factory("monsterFactory", function() {
 	}
 	
 	this.createMonster = function() {
-		return new Monster(_.sample(monsterNames,1), _.sample(monsterTypes,1));
+		return new Monster());
 	}
 	
 	return this;
