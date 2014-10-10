@@ -4,7 +4,20 @@ app.factory("terminal", function(player) {
 	
 	var $scope;
 	
-	var commands = ["look","move","yell", "fight", "WALLS", "teleport", "pick", "up", "inventory", "use", "list"];
+	var commands = ["look","move","yell", "fight", "WALLS", "teleport", "pick up", "up", "inventory", "use", "list"];
+	
+	var autoComplete = function(terminal, string, callback) {
+		var options = commands.slice(0);
+		options.push("move north");
+		options.push("move south");
+		options.push("move east");
+		options.push("move west");
+		/*options = _.filter(options, function(command) {
+			return command.indexOf(string) == 0;
+		});*/
+		callback(options);
+	}
+	
 	
 	var processCommand = function(command, terminal) {
 		if(command == ""){
@@ -120,7 +133,8 @@ app.factory("terminal", function(player) {
 		terminal = $("#litterbox").terminal(processCommand,{
 	        greetings: '',
 	        name: 'game',
-	        prompt: 'Command: '});
+	        prompt: 'Command: ',
+	        completion: autoComplete});
 		$scope = scope;
 	}
 	
