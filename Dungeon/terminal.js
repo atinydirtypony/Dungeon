@@ -42,31 +42,31 @@ app.factory("terminal", function(player) {
 			if(command.indexOf("move") >= 0){
 				
 				if(command.indexOf("up") >= 0 || command.indexOf("north") >= 0){
-					player.move("north");
+					echo(player.move("north"));
 					
 				} else if(command.indexOf("down") >= 0 || command.indexOf("south") >= 0){
-					player.move("south");
+					echo(player.move("south"));
 					
 				}else if(command.indexOf("left") >= 0 || command.indexOf("west") >= 0){
-					player.move("west");
+					echo(player.move("west"));
 					
 				}else if(command.indexOf("right") >= 0 || command.indexOf("east") >= 0){
-					player.move("east");
+					echo(player.move("east"));
 					
 				}else{
 					var x_or_y =Math.floor( Math.random()*2);
 					var plus_or_minus=Math.floor( Math.random()*2);
 					if(x_or_y){
 						if(plus_or_minus){
-							player.move("east");
+							echo(player.move("east"));
 						}else{
-							player.move("west");
+							echo(player.move("west"));
 						}						
 					}else{
 						if(plus_or_minus){
-							player.move("north");
+							echo(player.move("north"));
 						}else{
-							player.move("south");
+							echo(player.move("south"));
 						}
 					}
 				}
