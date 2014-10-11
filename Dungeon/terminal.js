@@ -143,7 +143,7 @@ app.factory("terminal", function(player) {
 	
 	this.startConsole = function(scope) {
 		terminal = $("#litterbox").terminal(processCommand,{
-	        greetings: '',
+	        greetings: whale,
 	        name: 'game',
 	        prompt: 'Command: ',
 	        completion: autoComplete});
