@@ -1,10 +1,10 @@
-app.factory("terminal", function(player) {
+app.factory("terminal", function(player, floor) {
 	
 	var terminal = null;
 	
 	var $scope;
 	
-	var commands = ["look","move","yell", "fight", "WALLS", "teleport", "pick", "inventory", "use", "list"];
+	var commands = ["map","look","move","yell", "fight", "WALLS", "teleport", "pick", "inventory", "use", "list"];
 	
 	var autoComplete = function(terminal, string, callback) {
 		var current = terminal.get_command();
@@ -102,7 +102,8 @@ app.factory("terminal", function(player) {
 					player.teleport("");
 				}
 			}
-
+			
+			//pick up item
 			if(command.indexOf("pick") >= 0 && command.indexOf("up") >=0){
 				item = command.replace("pick up ", "").trim();
 				item_info=player.getRoom().hasItem(item);
@@ -114,11 +115,11 @@ app.factory("terminal", function(player) {
 				}
 				
 			}
-			
+			//give inventory
 			if(command.indexOf("inventory") >= 0){
 				echo(player.getInventory());
 			}
-			
+			//use item
 			if(command.indexOf("use") >= 0 ){
 				item = command.replace("use ", "");
 				result = player.hasItem(item);
@@ -128,12 +129,18 @@ app.factory("terminal", function(player) {
 					echo("You do not have a "+item+"!");
 				}
 			}
-			
+			//list items of type
 			if(command.indexOf("list") >= 0 ){
 				type = command.replace("list ", "").trim();
 				echo(player.invList(type));
 			}
-				
+			
+			if(command.indexOf("map")>=0){
+				var mapScape = map(player, floor );
+				for(i=0; i<mapScape.length; i++){
+					echo(mapScape[i]);
+				}
+			}
 
 		} else {
 			echo("I don't understand " + command);
