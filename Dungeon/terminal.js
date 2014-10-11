@@ -4,14 +4,19 @@ app.factory("terminal", function(player) {
 	
 	var $scope;
 	
-	var commands = ["look","move","yell", "fight", "WALLS", "teleport", "pick up", "up", "inventory", "use", "list"];
+	var commands = ["look","move","yell", "fight", "WALLS", "teleport", "pick", "inventory", "use", "list"];
 	
 	var autoComplete = function(terminal, string, callback) {
 		var current = terminal.get_command();
-		console.log("CURRENT" + current);
 		var options = commands.slice(0);
 		if(current.trim().indexOf(" ") >0) {
 			options = [];
+		}
+		if(current.split(" ")[0] == "pick") {
+			options = ["up"];
+		}
+		if(current.split(" ")[0] == "list") {
+			options = ["drink","food"];
 		}
 		if(current.split(" ")[0] == "move") {
 			options = ["north","south","east","west"];
@@ -99,8 +104,7 @@ app.factory("terminal", function(player) {
 			}
 
 			if(command.indexOf("pick") >= 0 && command.indexOf("up") >=0){
-				item = command.replace("pick up ", "");
-				//console.log(item);
+				item = command.replace("pick up ", "").trim();
 				item_info=player.getRoom().hasItem(item);
 				if(item_info.state){
 					player.addToInventory(player.getRoom().takeItem(item_info.location));
