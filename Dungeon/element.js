@@ -66,7 +66,7 @@ var machine = new element( "machine", [ "Clockwork Tower", "Fabrication Shop", "
 elements.machine.setCross(["martial", "stealth", "human", "water", "light","shadow"],[2,2,2,2,0,0]);
 
 
-var chemical = new element( "chemical", [ "Chemical Plant", "Laboratory", "Apothacary"], {fighter: "Sluge Beast", balanced: "Escaped Experiment", sensor: "Toxic Cloud" , mental: "Living Pollution" }, [ "Venomous", "Poisonous" , ""], "990033");
+var chemical = new element( "chemical", [ "Chemical Plant", "Laboratory", "Apothacary"], {fighter: "Sluge Beast", balanced: "Escaped Experiment", sensor: "Toxic Cloud" , mental: "Living Pollution" }, [ "Venomous", "Poisonous" , "Corrosive"], "FF00FF");
 elements.chemical.setCross(["animal", "undead", "alien", "fire", "light","shadow"],[2,2,2,2,0,0]);
 
 
@@ -74,7 +74,7 @@ var energy = new element( "energy", [ "Power Plant", "High Voltage Area" , "Reac
 elements.energy.setCross(["mental", "sylven", "plant", "earth", "light","shadow"],[2,2,2,2,0,0]);
 
 
-var martial = new element( "martial", [ "Dojo", "Boxing Ring", "Back Alley"], {fighter: "Boxer", balanced: "Kung Fu Master", sensor: "Street Fighter", mental: "Kung Fu Master" }, [ "Strong","Scrappy" , "Tough"], "8F0000");
+var martial = new element( "martial", [ "Dojo", "Boxing Ring", "Back Alley"], {fighter: "Boxer", balanced: "Kung Fu Master", sensor: "Street Fighter", mental: "Kung Fu Master" }, [ "Strong","Scrappy" ,"Tough"], "8F0000");
 elements.martial.setCross(["mental", "stealth"],[2,0.5]);
 
 
@@ -109,7 +109,7 @@ elements.alien.setCross(["alien","fire","earth","air","water", "human","machine"
 
 //console.log(_.keys(elements));
 
-_.each(elements, function(thing){
+/*_.each(elements, function(thing){
 	_.each(elements, function(othing){
 		print = "";
 		print+= thing.getName() + " ===> "+ othing.getName() +": ";
@@ -118,5 +118,5 @@ _.each(elements, function(thing){
 		
 		
 	});
-});
+});*/
 //console.log(elements.fire.getRoom());

@@ -161,8 +161,9 @@ app.factory("player", function(floor) {
 	}
 	
 	this.invList=function(type){
-		console.log(_.indexOf(_.keys(inventory)));
-		if(_.indexOf(_.keys(inventory))>=0){
+		console.log(type);
+		console.log(_.indexOf(_.keys(inventory),type));
+		if(_.indexOf(_.keys(inventory),type)>=0){
 			var result ="In "+type+"s you have: "
 			for(i=0;i<inventory[type].length; i++){
 				result += inventory[type][i].name
