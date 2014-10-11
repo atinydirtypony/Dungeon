@@ -16,7 +16,7 @@ app.factory("terminal", function(player) {
 			options = ["up"];
 		}
 		if(current.split(" ")[0] == "list") {
-			options = ["drink","food"];
+			options = player.invKeys();
 		}
 		if(current.split(" ")[0] == "move") {
 			options = ["north","south","east","west"];

@@ -156,13 +156,22 @@ app.factory("player", function(floor) {
 		}
 	}
 	
+	this.invKeys=function(){
+		return _.keys(inventory);
+	}
+	
 	this.invList=function(type){
-		var result ="In "+type+"s you have: "
-		for(i=0;i<inventory[type].length; i++){
-			result += inventory[type][i].name
-			if((i+1) != inventory[type].length){
-				result +=", "
+		console.log(_.indexOf(_.keys(inventory)));
+		if(_.indexOf(_.keys(inventory))>=0){
+			var result ="In "+type+"s you have: "
+			for(i=0;i<inventory[type].length; i++){
+				result += inventory[type][i].name
+				if((i+1) != inventory[type].length){
+					result +=", "
+				}
 			}
+		}else{
+			result = "What the fuck do you think you have in your inventory? You ain't got none of that shit!"
 		}
 		return result;
 	}
