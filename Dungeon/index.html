@@ -49,7 +49,13 @@
 		<!-- Mini map which links to main map -->
 		
 		<div id="terminal">
+		<div class="room_info">
+			<h3 style ="color: {{player.getRoom().color}}">****************</h3>
+			<h2 style ="color: {{player.getRoom().fontColor}}">{{player.getRoom().getName()}}</h2>
+			<h3  style ="color: {{player.getRoom().color}}">***************</h3>
+		</div>
 			<div id="litterbox"></div>
+			
 		</div>
 		
 		
@@ -77,17 +83,7 @@
 		</div>
 		
 		<!-- main area for text window -->
-		<div class="room_info" style="background: {{player.getRoom().color}}" >
-			
-			<h2 style ="color: {{player.getRoom().fontColor}}">{{player.getRoom().getName()}}</h2>
-			
-			<!-- the main text box where all the action happens -->
-			<div>
-				
-				<!-- <form id="shit_shoot" ng-submit="ref_user_text()"><input type="text" ng-model="user_text"></input></form> -->
-			</div>
-		
-		</div>
+	
 		
 		<!-- display the commands a user has discovered for not in battle -->
 			<div id="commands">

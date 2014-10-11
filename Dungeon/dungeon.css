@@ -105,14 +105,24 @@ body{
 	display: inline-block;
 	border: black solid 6px;
 	color:#FFF;
-	height:600px;
-	margin-top: 50px;
-	width:62%;
+	height:103px;
+	position: absolute;
+	top: 86px;
+	left: 30px;
+	width:220px;
 	
 }
 
 .room_info h2 {
 	text-align: center;
+	font-size: medium;
+	font-family:monospace;
+	
+}
+.room_info h3 {
+	text-align: center;
+	font-size: medium;
+	font-family:monospace;
 	
 }
 
