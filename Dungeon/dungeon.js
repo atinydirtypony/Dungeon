@@ -18,7 +18,7 @@ app.controller("dungeonController", function($scope,$timeout,player,floor,termin
 		var el = $("#terminal")[0];
 		console.log(el);
 		var func = el.requestFullScreen
-        || el.webkitRequestFullScreen
+        || el.webkitRequestFullscreen
         || el.mozRequestFullScreen;
 		func.call(el);
 	}

@@ -2,13 +2,13 @@
 
 
 //Floor Class
-app.factory("floor", function(collectablesFactory) {
+app.factory("floor", function(collectablesFactory,monsterFactory) {
 	
 	//Room Definition
 	var Room = function(){
 		var collectables = [];
 		var furniture = [];
-		var monsters =[];
+		var monsters = [];
 		var home_base = false;
 		var enemy = null;
 		var type = [];
@@ -17,6 +17,18 @@ app.factory("floor", function(collectablesFactory) {
 		while(type1 == type2){
 			type2 =_.sample(elements);
 		}
+		
+		var chance = Math.floor(Math.random()*20);
+		if(chance>7){
+			monsters.push(monsterFactory.createMonster([type1,type2]));
+		}
+		if(chance>14){
+			monsters.push(monsterFactory.createMonster([type1,type2]));
+		}
+		if(chance>18){
+			monsters.push(monsterFactory.createMonster([type1,type2]));
+		}
+	
 		
 		this.getCollectables = function() {
 			return collectables;
@@ -152,7 +164,19 @@ app.factory("floor", function(collectablesFactory) {
 				_.each(collectables, function(collectable){
 					info = info + " a "+ collectable.name;
 					
-				})
+				});
+				
+			}
+			
+			if(monsters.length == 0){
+				info = info + " . This room is safe."
+			}else{
+				info = info +". Oh and";
+				_.each(monsters, function(monster){
+					info = info + " a "+ monster.getName();
+					
+				});
+				info= info + " seems to be lurking.";
 			}
 			
 			return info;

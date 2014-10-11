@@ -86,7 +86,7 @@ var stealth = new element( "stealth", [ "Hidden Passage", "Panic Room", "Crawlsp
 elements.stealth.setCross(["martial", "mental"],[2,0.5]);
 
 
-var plant = new element( "plant", [ "Garden", "Arbory", "Park"], {fighter: "Whip Vine", balanced: "Tree", sensor: "", mental: "Carnivorous Flower"}, [ "Floral", "Photosynthesizing", "Mossy"], "66FF66");
+var plant = new element( "plant", [ "Garden", "Arbory", "Park"], {fighter: "Whip Vine", balanced: "Treant", sensor: "Man-Eating Cactus", mental: "Carnivorous Flower"}, [ "Floral", "Photosynthesizing", "Mossy"], "66FF66");
 elements.plant.setCross(["shadow", "chemical", "light", "energy"],[2,2,0.5,0.5]);
 
 
