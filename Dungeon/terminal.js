@@ -130,7 +130,7 @@ app.factory("terminal", function(player) {
 			}
 			
 			if(command.indexOf("list") >= 0 ){
-				type = command.replace("list ", "");
+				type = command.replace("list ", "").trim();
 				echo(player.invList(type));
 			}
 				
