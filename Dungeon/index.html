@@ -49,55 +49,26 @@
 		<!-- Mini map which links to main map -->
 		
 		<div id="terminal">
-		<div class="room_info">
-			<h3 style ="color: {{player.getRoom().color}}">****************</h3>
-			<h2 style ="color: {{player.getRoom().fontColor}}">{{player.getRoom().getName()}}</h2>
-			<h3  style ="color: {{player.getRoom().color}}">***************</h3>
-		</div>
+			<div class="room_info">
+				<h3 style ="color: {{player.getRoom().color}}">****************</h3>
+				<h2 style ="color: {{player.getRoom().fontColor}}">{{player.getRoom().getName()}}</h2>
+				<h3  style ="color: {{player.getRoom().color}}">***************</h3>
+			</div>
 			<div id="litterbox"></div>
+			<div class="player_stats">
+				<div id="attributes">
+					<ul>
+						<li ng-repeat="stat in player.getStats()" style="color: {{stat.color}};">{{stat.name}}: {{stat.current}} of {{stat.maximum}}</li>
+					</ul>
+				</div>
+
+			</div>
 			
 		</div>
 		
 		
 		<!-- Display for player stats and vitals and abilities -->
-		<div class="player_stats">
-			<div id="attributes">
-				<ul>
-					<li ng-repeat="stat in player.getStats()" style="background-color: {{stat.color}};">{{stat.name}}: {{stat.current}} of {{stat.maximum}}</li>
-				</ul>
-			</div>
-			
-			<!-- displays the moves user has in battle -->
-			<div id="abilities">
-				
-				<h2>Abilities</h2>
-				
-				<ol>
-			
-					<li><a>Fire Ball</a></li>
-					<li><a>Punch</a></li>
-					<li><a>Kiss</a></li>
-				
-				</ol>
-			</div>
-		</div>
 		
-		<!-- main area for text window -->
-	
-		
-		<!-- display the commands a user has discovered for not in battle -->
-			<div id="commands">
-				
-				<h2>Known Commands</h2>
-				
-				<ul>
-					<li ng-repeat="command in known_commands track by $index">{{command}}</li>
-				</ul>
-				
-			</div>
-		
-	
-	
 	</body>
 
 </html>

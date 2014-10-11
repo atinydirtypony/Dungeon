@@ -6,7 +6,7 @@ body, html, div{
 .header {
 	background:#000;
 	height: 70px;
-	color:#951;
+	color:#AAA;
 	text-align:center;
 	font-family:fantasy;
 	border-bottom: #334 solid 4px;
@@ -22,37 +22,16 @@ body, html, div{
 }
 
 .site_nav {
-	background-color: #DB9;
+	background-color: #888;
 	height:40px;
 
 	
 }
 
-#abilities{
-	display:block;
-	float:left;
-	margin: 50px;
-	height:600px;
-	background: #DB9;
-	width: 250px;
-	border: black solid 4px;
-	
-}
 
-#abilities h2{
-	
-	text-align:center;
-	background: #951;
-	width:170px;
-	height:35;
-	margin-left:40px;
-	color:#EFF;
-	border:black solid 2px;
-}
 
 body{
-	background: url(metal.jpg);
-	background-size: cover;
+	background: black;
 	
 }
 .site_nav ul {
@@ -74,28 +53,19 @@ body{
 
 
 #attributes ul{
-	width:100%;	
-	margin-top: 30px;
-	margin-left:0;
-	padding-left:0px;
+	position: absolute;
+	top: 550px;
+	left: 380px;
 	
 }
 
 #attributes li{
-	margin:0;
 	text-align: center;
-	padding-top: 7px;
-	float:left;
-	width:20%;
-	display:block;
-	margin-left:5.66%;
-	margin-right:5.66%;
+	height: 30px;
+	display:inline-block;
 	height:30px;
 	font-family:monospace;
-	font-size:120%;
-	border:#000 solid 8px;
-	font-weight:bold;
-	color:#FFF;
+	width:200px;
 	
 	
 	
@@ -132,7 +102,7 @@ body{
 	top:130px;
 	display:block;
 	width:650px;
-	height:430px;
+	height:400px;
 	overflow:scroll;
 }
 
@@ -144,6 +114,7 @@ body{
 	position:relative;
 	width: 1159px;
 	height: 725px;
+	margin-top: 30px;
 	margin-left:auto;
 	margin-right:auto;
 	background-size: 1159px 725px;
