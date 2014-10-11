@@ -13,6 +13,15 @@ app.controller("dungeonController", function($scope,$timeout,player,floor,termin
 		floor.newRoom(1000,1000);
 		terminal.startConsole($scope);
 	}
+	
+	$scope.fullscreen = function() {
+		var el = $("#terminal")[0];
+		console.log(el);
+		var func = el.requestFullScreen
+        || el.webkitRequestFullScreen
+        || el.mozRequestFullScreen;
+		func.call(el);
+	}
 
 });
 

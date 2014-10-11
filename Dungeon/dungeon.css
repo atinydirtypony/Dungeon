@@ -121,3 +121,11 @@ body{
 	background-image:url(terminal.png);
 	background-color:black;
 }
+
+#fullscreen{
+	position:absolute;
+	width:90px;
+	top:245px;
+	height:90px;
+	left:100px;
+}
