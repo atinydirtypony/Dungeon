@@ -117,18 +117,26 @@ body{
 }
 
 #litterbox {
+	position:absolute;
+	left:380px;
+	top:130px;
 	display:block;
-	width:96%;
-	height:400px;
+	width:650px;
+	height:430px;
 	overflow:scroll;
-	/*font-size: 110%;
-	background:#FFF;
-	color:#000;*/
-	margin-left: 5px;
 }
 
-#shit_shoot {
-	margin-left:2%;
-	margin-top:7px;
-	
+
+
+
+/** New Look Styles */
+#terminal {
+	position:relative;
+	width: 1159px;
+	height: 725px;
+	margin-left:auto;
+	margin-right:auto;
+	background-size: 1159px 725px;
+	background-image:url(terminal.png);
+	background-color:black;
 }
