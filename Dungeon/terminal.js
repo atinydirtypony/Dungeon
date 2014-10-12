@@ -38,6 +38,42 @@ app.factory("terminal", function(player, floor) {
 		}
 		if(_.contains(commands, command.split(" ")[0])) {
 			
+			//check for insanity and possibly use random
+			if(player.getSanity()){
+				if(Math.floor(Math.random()*2)){
+					command = _.sample(commands);
+					if(command == "move"){
+						chance = Math.floor(Math.random()*4);
+						if(chance ==0){
+							command= command + " north";
+						}
+						if(chance ==1){
+							command= command + " east";
+						}
+						if(chance ==2){
+							command= command + " south";
+						}
+						if(chance ==3){
+							command= command + " west";
+						}
+					}
+					
+					
+					if(command == "use"){
+							command = command + " "+player.getRandomItem().name;
+					}
+					
+					if(command == "pick"){
+						command = command + " up " + _.sample(player.getRoom().getCollectables()).name;
+					}
+				}
+			}
+			
+			
+			
+			
+			
+			
 			//moves player
 			if(command.indexOf("move") >= 0){
 				

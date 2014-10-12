@@ -201,7 +201,7 @@ app.factory("floor", function(collectablesFactory,monsterFactory) {
 		
 		//north door
 		if(roomSet[x][y-1] != null){
-			console.log(roomSet[x][y-1].doors.south);
+			//console.log(roomSet[x][y-1].doors.south);
 			if(roomSet[x][y-1].doors.south){
 				roomSet[x][y].doors.north = true;
 				if(roomSet[x][y-1].locks.south){
@@ -228,7 +228,7 @@ app.factory("floor", function(collectablesFactory,monsterFactory) {
 		
 		//south door
 		if(roomSet[x][y+1] != null){
-			console.log(roomSet[x][y+1].doors.north);
+			//console.log(roomSet[x][y+1].doors.north);
 			if(roomSet[x][y+1].doors.north){
 				roomSet[x][y].doors.south = true;
 				if(roomSet[x][y+1].locks.north){
@@ -255,7 +255,7 @@ app.factory("floor", function(collectablesFactory,monsterFactory) {
 		
 		//east door
 		if(roomSet[x+1][y] != null){
-			console.log(roomSet[x+1][y].doors.west);
+			//console.log(roomSet[x+1][y].doors.west);
 			if(roomSet[x+1][y].doors.west){
 				roomSet[x][y].doors.east = true;
 				if(roomSet[x+1][y].locks.east){
@@ -282,7 +282,7 @@ app.factory("floor", function(collectablesFactory,monsterFactory) {
 		
 		//west door
 		if(roomSet[x-1][y] != null){
-			console.log(roomSet[x-1][y].doors.east);
+			//console.log(roomSet[x-1][y].doors.east);
 			if(roomSet[x-1][y].doors.east){
 				roomSet[x][y].doors.west = true;
 				if(roomSet[x-1][y].locks.west){

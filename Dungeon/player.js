@@ -19,6 +19,8 @@ app.factory("player", function(floor) {
 
 	var stats = [];
 	
+	var insanity = false;
+	
 	var inventory ={};
 	
 	function levelUp() {
@@ -40,7 +42,30 @@ app.factory("player", function(floor) {
 		health+=H;
 		mana+=M;
 		vitality+=V;
+		
+		
+		//set to max
+		if(mana>maximumMana){
+			mana = maximumMana;
+		}
+		if(health>maximumHealth){
+			health = maximumHealth;
+		}
+		if(vitality>maximumVitality){
+			vitality=maximumVitality;
+		}
+		
+		//check for 0's
+		if(health<=0){
+			this.die();
+		}
+		
+		if(mana<=0){
+			this.goInsane();
+		}
+		
 		this.updateStats();
+		
 		
 	}
 	
@@ -59,7 +84,7 @@ app.factory("player", function(floor) {
 	this.getRoom = function() {
 		return floor.getRoom(location.x, location.y);
 	}
-	
+	insanity
 	this.move = function(direction){
 		//console.log(direction+" v: "+vitality);
 		var result;
@@ -191,9 +216,36 @@ app.factory("player", function(floor) {
 	
 	this.getLocation = function(){
 		return location
+	};
+	
+	this.die = function(){
+		mana = 100;
+		health = 100;
+		vitality = 100;
+		maximumMana = 100;
+		maximumHealth = 100;
+		maximumVitality = 100;
+		inventory ={};
+		location.x = Math.floor(Math.random()*2000);
+		location.y = Math.floor(Math.random()*2000);
+		this.getRoom();
+	}
+	
+	this.goInsane = function(){
+		insanity = true;
+		
+	}
+	
+	this.getSanity = function(){
+		return insanity;
 	}
 	
 	this.updateStats();
+	
+	this.getRandomItem = function(){
+		var keys = _.keys(inventory);
+		return _.sample(inventory[_.sample(keys)]);
+	}
 	
 	return this;
 });
