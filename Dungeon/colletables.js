@@ -94,7 +94,23 @@ app.factory("collectablesFactory", function() {
 		
 	}
 	
-	
+	var changeType = function(type){
+		var staticType = type;
+		
+		return function(player){
+			//console.log(staticType.getName())
+			types = player.getTypes();
+			
+			if(types.length>3){
+				types.splice(0,1);
+			}
+			types.push(staticType);
+			player.setTypes(types);
+		}
+		
+	}
+		
+		
 	
 	//<----------------------------------actual items----------------------------------------------------------------->
 	 
@@ -289,6 +305,27 @@ app.factory("collectablesFactory", function() {
 		}
 		
 		return core;
+	}
+	
+	this.createIdol = function(type){
+		core = new item();
+		if(type == null){
+			type = _.sample(elements);
+			core.functions.push(changeType(type));
+			
+		}else{
+			core.functions.push(changeType(type));
+			
+		}
+		
+		core.type = "Idol";
+		core.name = "Idol";
+		
+		core.name = type.getName()+ " "+core.name;
+		core.name = core.name[0].toUpperCase() + core.name.slice(1);
+		
+		return core;
+		
 	}
 	
 	return this;

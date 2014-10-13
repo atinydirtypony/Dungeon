@@ -10,7 +10,7 @@ var map = function(player, floor){
 			//console.log(floor.roomCheck(centerLocation.x-2+h,centerLocation.y-2+j));
 			if(floor.roomCheck(centerLocation.x-2+h,centerLocation.y-2+j)){
 
-				var current_room= floor.getRoomUnsafe(centerLocation.x-2+h,centerLocation.y-2+j);
+				var current_room= floor.getRoom(centerLocation.x-2+h,centerLocation.y-2+j);
 				//console.log(current_room.doors);
 				
 				if(current_room.doors.north){

@@ -57,6 +57,15 @@ app.factory("floor", function(collectablesFactory,monsterFactory) {
 			}
 			
 		}
+		
+		if(Math.floor(Math.random())){
+			collectables.push(collectablesFactory.createIdol(type1))
+		}else{
+			collectables.push(collectablesFactory.createIdol(type2))
+		}
+		
+		collectables.push(collectablesFactory.createIdol());
+		
 		this.getName = function(){
 			return name;
 		}
@@ -201,7 +210,6 @@ app.factory("floor", function(collectablesFactory,monsterFactory) {
 		
 		//north door
 		if(roomSet[x][y-1] != null){
-			//console.log(roomSet[x][y-1].doors.south);
 			if(roomSet[x][y-1].doors.south){
 				roomSet[x][y].doors.north = true;
 				if(roomSet[x][y-1].locks.south){
@@ -210,7 +218,12 @@ app.factory("floor", function(collectablesFactory,monsterFactory) {
 					roomSet[x][y].locks.north = false;
 				}
 			}else{
-				roomSet[x][y].doors.north = false;
+				roomSet[x][y].locks.north = false;
+				if(roomSet[x][y-1].locks.south){
+					roomSet[x][y].locks.north = true;
+				}else{
+					roomSet[x][y].locks.north = false;
+				}
 			}
 		}else{
 			var chance = Math.floor(4*Math.random());
@@ -228,7 +241,6 @@ app.factory("floor", function(collectablesFactory,monsterFactory) {
 		
 		//south door
 		if(roomSet[x][y+1] != null){
-			//console.log(roomSet[x][y+1].doors.north);
 			if(roomSet[x][y+1].doors.north){
 				roomSet[x][y].doors.south = true;
 				if(roomSet[x][y+1].locks.north){
@@ -237,7 +249,7 @@ app.factory("floor", function(collectablesFactory,monsterFactory) {
 					roomSet[x][y].locks.south = false;
 				}
 			}else{
-				roomSet[x][y].doors.south = false;
+				roomSet[x][y].locks.north = false;
 			}
 		}else{
 			var chance = Math.floor(4*Math.random());
@@ -255,7 +267,6 @@ app.factory("floor", function(collectablesFactory,monsterFactory) {
 		
 		//east door
 		if(roomSet[x+1][y] != null){
-			//console.log(roomSet[x+1][y].doors.west);
 			if(roomSet[x+1][y].doors.west){
 				roomSet[x][y].doors.east = true;
 				if(roomSet[x+1][y].locks.east){
@@ -264,7 +275,7 @@ app.factory("floor", function(collectablesFactory,monsterFactory) {
 					roomSet[x][y].locks.east = false;
 				}
 			}else{
-				roomSet[x][y].doors.east = false;
+				roomSet[x][y].locks.east = false;
 			}
 		}else{
 			var chance = Math.floor(4*Math.random());
@@ -282,7 +293,6 @@ app.factory("floor", function(collectablesFactory,monsterFactory) {
 		
 		//west door
 		if(roomSet[x-1][y] != null){
-			//console.log(roomSet[x-1][y].doors.east);
 			if(roomSet[x-1][y].doors.east){
 				roomSet[x][y].doors.west = true;
 				if(roomSet[x-1][y].locks.west){
@@ -291,7 +301,7 @@ app.factory("floor", function(collectablesFactory,monsterFactory) {
 					roomSet[x][y].locks.west = false;
 				}
 			}else{
-				roomSet[x][y].doors.west = false;
+				roomSet[x][y].locks.west = false;
 			}
 		}else{
 			var chance = Math.floor(4*Math.random());
@@ -317,10 +327,6 @@ app.factory("floor", function(collectablesFactory,monsterFactory) {
 		}
 		return roomSet[x][y];
 	}
-
-	this.getRoomUnsafe =function(x,y){
-		return roomSet[x][y];
-	}	
 	
 	
 	//check to see if a room exists

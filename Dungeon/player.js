@@ -23,6 +23,9 @@ app.factory("player", function(floor) {
 	
 	var inventory ={};
 	
+	var types=[elements.human];
+	//console.log(types[0].getName());
+	
 	function levelUp() {
 		
 	}
@@ -247,5 +250,16 @@ app.factory("player", function(floor) {
 		return _.sample(inventory[_.sample(keys)]);
 	}
 	
+	this.getTypes =function(){
+		return types;
+	}
+	
+	this.setTypes = function(newTypes){
+		types = newTypes;
+		types = _.uniq(types);
+		_.each(types, function(type){
+			console.log(type.getName());
+		});
+	}
 	return this;
 });

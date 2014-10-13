@@ -19,11 +19,11 @@ var element = function(id, rooms, monstersNames, descript, colorhex){
 	this.getDescriptor = function(){return _.sample(descriptors);}
 	
 	this.getColor = function(){
-		console.log(color)
+		//console.log(color)
 		return "#"+color;
 		}
 	
-	elements[name]=this;
+
 	
 	this.setCross = function(types, multi){
 		crossElements = _.object(types, multi);
@@ -36,6 +36,8 @@ var element = function(id, rooms, monstersNames, descript, colorhex){
 		}
 		return multiplier;
 	}
+	
+	elements[name]=this;
 }
 
 	
