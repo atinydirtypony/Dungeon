@@ -218,12 +218,7 @@ app.factory("floor", function(collectablesFactory,monsterFactory) {
 					roomSet[x][y].locks.north = false;
 				}
 			}else{
-				roomSet[x][y].locks.north = false;
-				if(roomSet[x][y-1].locks.south){
-					roomSet[x][y].locks.north = true;
-				}else{
-					roomSet[x][y].locks.north = false;
-				}
+				roomSet[x][y].doors.north = false;
 			}
 		}else{
 			var chance = Math.floor(4*Math.random());
@@ -249,7 +244,7 @@ app.factory("floor", function(collectablesFactory,monsterFactory) {
 					roomSet[x][y].locks.south = false;
 				}
 			}else{
-				roomSet[x][y].locks.north = false;
+				roomSet[x][y].doors.south = false;
 			}
 		}else{
 			var chance = Math.floor(4*Math.random());
@@ -275,7 +270,7 @@ app.factory("floor", function(collectablesFactory,monsterFactory) {
 					roomSet[x][y].locks.east = false;
 				}
 			}else{
-				roomSet[x][y].locks.east = false;
+				roomSet[x][y].doors.east = false;
 			}
 		}else{
 			var chance = Math.floor(4*Math.random());
@@ -301,7 +296,7 @@ app.factory("floor", function(collectablesFactory,monsterFactory) {
 					roomSet[x][y].locks.west = false;
 				}
 			}else{
-				roomSet[x][y].locks.west = false;
+				roomSet[x][y].doors.west = false;
 			}
 		}else{
 			var chance = Math.floor(4*Math.random());
