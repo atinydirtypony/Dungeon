@@ -59,6 +59,11 @@
 				<h2 style ="color: {{player.getRoom().fontColor}}">{{player.getRoom().getName()}}</h2>
 				<h3  style ="color: {{player.getRoom().color}}">***************</h3>
 			</div>
+			<div class="player_lights">
+				<img src="lights.png" id ="light1" style = "background-color: {{player.typeColors()[0]}}">
+				<img src="lights.png" id ="light2" style = "background-color: {{player.typeColors()[1]}}">
+				<img src="lights.png" id ="light3" style = "background-color: {{player.typeColors()[2]}}">
+			</div>
 			<div id="fullscreen" ng-click="fullscreen()"></div>
 			<div id="litterbox"></div>
 			<div class="player_stats">

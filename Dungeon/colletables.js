@@ -101,11 +101,12 @@ app.factory("collectablesFactory", function() {
 			//console.log(staticType.getName())
 			types = player.getTypes();
 			
-			if(types.length>3){
+			if(types.length>=3){
 				types.splice(0,1);
 			}
 			types.push(staticType);
 			player.setTypes(types);
+			console.log(types.length);
 		}
 		
 	}

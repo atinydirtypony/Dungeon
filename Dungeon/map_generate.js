@@ -105,7 +105,7 @@ app.factory("floor", function(collectablesFactory,monsterFactory) {
 		}
 		
 		this.getTypes =function(){
-			return [type1, type2];
+			return [type1, type2];//console.log(colors);
 		}
 		
 		this.isLocked = function(direction){

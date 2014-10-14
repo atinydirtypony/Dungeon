@@ -84,16 +84,28 @@ app.factory("player", function(floor) {
 		experience += exp;
 	}
 	
-	this.getRoom = function() {
+	var getRoom = function() {
 		return floor.getRoom(location.x, location.y);
 	}
-	insanity
+	this.getRoom = getRoom;
+
 	this.move = function(direction){
 		//console.log(direction+" v: "+vitality);
 		var result;
 		if(this.getRoom().hasDoor(direction)) {
 			if(!this.getRoom().isLocked(direction)){
-				this.statAdjust(0,0,-3);
+				
+				//adjust vitality based on room type you leave
+				var bigM=1;
+
+				_.each(types, function(t1){
+
+					bigM = bigM * t1.getCross(getRoom().getTypes()[1].getName());
+					bigM = bigM * t1.getCross(getRoom().getTypes()[0].getName());
+				});
+				this.statAdjust(0,0,Math.floor(-8*bigM));
+				
+				
 				if(direction == "west"){
 					location.x = location.x -1;
 					
@@ -108,7 +120,7 @@ app.factory("player", function(floor) {
 					location.y = location.y + 1;
 				}
 				this.getRoom();
-				result = "You have moved "+direction+".";
+				result = "You have moved "+direction+"."+" It took you "+Math.floor(bigM*8)+" vitality of effort to do so.";
 			} else {
 				result = "The door is locked!";
 			}
@@ -257,9 +269,18 @@ app.factory("player", function(floor) {
 	this.setTypes = function(newTypes){
 		types = newTypes;
 		types = _.uniq(types);
-		_.each(types, function(type){
+		/*_.each(types, function(type){
 			console.log(type.getName());
-		});
+		});*/
+	}
+	
+	
+	this.typeColors = function(){
+		colors = ["#000000","#000000","#000000"];
+		for(i=0;i<types.length;i++){
+			colors[i] = types[i].getColor();
+		}
+		return colors;
 	}
 	return this;
 });
