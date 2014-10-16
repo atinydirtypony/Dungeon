@@ -2,7 +2,7 @@ app = angular.module("dungeonApp", []);
 			
 app.controller("dungeonController", function($scope,$timeout,player,floor,terminal) {
 	
-	$scope.commands = ["look","move","yell", "fight", "WALLS", "teleport", "pick", "up", "inventory", "use", "list"];
+	$scope.commands = ["look","move", "WALLS", "teleport", "pick", "up", "inventory", "use", "list"];
 	$scope.known_commands =[];
 	
 	$scope.results = [];
@@ -10,7 +10,7 @@ app.controller("dungeonController", function($scope,$timeout,player,floor,termin
 	$scope.player = player;
 	
 	$scope.init = function() {
-		floor.newRoom(1000,1000);
+		floor.newRoom(1000,1000,1);
 		terminal.startConsole($scope);
 	}
 	

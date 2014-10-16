@@ -1,6 +1,7 @@
 app.factory("player", function(floor) {
 	
 	var name = "Unnamed Player";
+	var input = "";
 	
 	var maximumHealth = 100;
 	var health = 100;
@@ -11,6 +12,8 @@ app.factory("player", function(floor) {
 	var maximumVitality = 100;
 	var vitality = 100;
 	
+	var skills = { physiq: 1, senses: 1, intellegence: 1};
+
 	var level = 1;
 	
 	var experience = 0;
@@ -25,6 +28,17 @@ app.factory("player", function(floor) {
 	
 	var types=[elements.human];
 	//console.log(types[0].getName());
+	
+	var attacks =[];
+	
+	
+	this.setInput = function(text){
+		input = text;
+	}
+	
+	this.lastInput = function(){
+		return input;
+	}
 	
 	function levelUp() {
 		
@@ -82,10 +96,18 @@ app.factory("player", function(floor) {
 
 	this.addExperience = function(exp) {
 		experience += exp;
+		if (experience > (level*(level-1))){
+			this.levelup();
+			experience = experience - (level*(level-1));
+		}
+	}
+	
+	this.levelUp = function(){
+		
 	}
 	
 	var getRoom = function() {
-		return floor.getRoom(location.x, location.y);
+		return floor.getRoom(location.x, location.y,level);
 	}
 	this.getRoom = getRoom;
 
@@ -246,6 +268,10 @@ app.factory("player", function(floor) {
 		this.getRoom();
 	}
 	
+	this.isAlive = function(){
+		return (health > 0);
+	}
+	
 	this.goInsane = function(){
 		insanity = true;
 		
@@ -282,5 +308,14 @@ app.factory("player", function(floor) {
 		}
 		return colors;
 	}
+	
+	this.getAttack = function(){
+		return {name: kick}
+	}
+	
+	this.getSkills = function(){
+		return skills;
+	}
+	
 	return this;
 });

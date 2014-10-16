@@ -4,7 +4,7 @@ app.factory("terminal", function(player, floor) {
 	
 	var $scope;
 	
-	var commands = ["map","look","move","yell", "fight", "WALLS", "teleport", "pick", "inventory", "use", "list"];
+	var commands = ["map","look","move", "WALLS", "teleport", "pick", "inventory", "use", "list", "help"];
 	
 	var autoComplete = function(terminal, string, callback) {
 		var current = terminal.get_command();
@@ -37,6 +37,17 @@ app.factory("terminal", function(player, floor) {
 			return;
 		}
 		if(_.contains(commands, command.split(" ")[0])) {
+			player.setInput(command);
+			//console.log(player.lastInput());
+			///----------------------------------------------------------------------------------
+			player.getRoom().setEnemy();
+			//console.log(player.getRoom().getEnemy());
+			if( player.getRoom().getEnemy() != null){
+				echo("**********A "+player.getRoom().getEnemy().getName()+ " is attacking!**********");
+				battle = true;
+			}else{
+				battle = false;
+			}
 			
 			//check for insanity and possibly use random
 			if(player.getSanity()){
@@ -52,7 +63,7 @@ app.factory("terminal", function(player, floor) {
 						}
 						if(chance ==2){
 							command= command + " south";
-						}
+						}player1.statAdjust(7,0,0);
 						if(chance ==3){
 							command= command + " west";
 						}
@@ -69,7 +80,18 @@ app.factory("terminal", function(player, floor) {
 				}
 			}
 			
-			
+			if(command.indexOf("help") >= 0){
+				echo("*****Help*****\n\n"+
+						"map ==> display a map of the local area\n\n"+
+						"look ==> tells you the rooms surroundings\n\n"+
+						"move + (north,south,east,west) ==> moves you to a different room\n\n"+
+						"pick up + (full item name) ==> picks up item\n\n"+
+						"use + (full item name) ==> uses item\n\n"+
+						"inventory ==> tells you the number of each type of item you have \n\n"+
+						"list + (type) ==> list the items of type"
+						
+				);
+			}
 			
 			
 			
@@ -79,7 +101,6 @@ app.factory("terminal", function(player, floor) {
 				
 				if(command.indexOf("up") >= 0 || command.indexOf("north") >= 0){
 					echo(player.move("north"));
-					
 				} else if(command.indexOf("down") >= 0 || command.indexOf("south") >= 0){
 					echo(player.move("south"));
 					
@@ -118,7 +139,7 @@ app.factory("terminal", function(player, floor) {
 				player.getRoom().doors.south = false;
 				player.getRoom().doors.east = false;
 				player.getRoom().doors.west = false;
-				echo("This room is now a trap...consequently you are trapped...should have thought about that first...");
+				echo("This room is now a traplayer1.statAdjust(7,0,0);p...consequently you are trapped...should have thought about that first...");
 			}
 			
 			if(command.indexOf("teleport") >= 0){
@@ -142,6 +163,7 @@ app.factory("terminal", function(player, floor) {
 			//pick up item
 			if(command.indexOf("pick") >= 0 && command.indexOf("up") >=0){
 				item = command.replace("pick up ", "").trim();
+				
 				item_info=player.getRoom().hasItem(item);
 				if(item_info.state){
 					player.addToInventory(player.getRoom().takeItem(item_info.location));
@@ -158,9 +180,21 @@ app.factory("terminal", function(player, floor) {
 			//use item
 			if(command.indexOf("use") >= 0 ){
 				item = command.replace("use ", "");
+				
+				//remove direction
+				item=item.replace("north", "").trim();
+				item=item.replace("east", "").trim();
+				item=item.replace("south", "").trim();
+				item=item.replace("west", "").trim();
+				
+				console.log(item);
+				
 				result = player.hasItem(item);
 				if(result.state){
-					player.useItem(result.type, item);
+					use =player.useItem(result.type, item);
+					if(use != null){
+						echo(use);
+					}
 				}else{
 					echo("You do not have a "+item+"!");
 				}
@@ -176,6 +210,10 @@ app.factory("terminal", function(player, floor) {
 				for(i=0; i<mapScape.length; i++){
 					echo(mapScape[i]);
 				}
+			}
+			
+			if(battle){
+				player.statAdjust(-5,0,0);
 			}
 
 		} else {
@@ -197,7 +235,9 @@ app.factory("terminal", function(player, floor) {
 		terminal.echo(text);
 	}
 	this.echo = echo;
+	this.battle = false;
 	
 	return this;
+	
 	
 });

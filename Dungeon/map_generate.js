@@ -5,7 +5,7 @@
 app.factory("floor", function(collectablesFactory,monsterFactory) {
 	
 	//Room Definition
-	var Room = function(){
+	var Room = function(level){
 		var collectables = [];
 		var furniture = [];
 		var monsters = [];
@@ -20,13 +20,13 @@ app.factory("floor", function(collectablesFactory,monsterFactory) {
 		
 		var chance = Math.floor(Math.random()*20);
 		if(chance>7){
-			monsters.push(monsterFactory.createMonster([type1,type2]));
+			monsters.push(monsterFactory.createMonster([type1,type2],level));
 		}
 		if(chance>14){
-			monsters.push(monsterFactory.createMonster([type1,type2]));
+			monsters.push(monsterFactory.createMonster([type1,type2],level));
 		}
 		if(chance>18){
-			monsters.push(monsterFactory.createMonster([type1,type2]));
+			monsters.push(monsterFactory.createMonster([type1,type2],level));
 		}
 	
 		
@@ -177,23 +177,42 @@ app.factory("floor", function(collectablesFactory,monsterFactory) {
 				
 			}
 			
-			if(monsters.length == 0){
-				info = info + " . This room is safe."
-			}else{
-				info = info +". Oh and";
-				_.each(monsters, function(monster){
-					info = info + " a "+ monster.getName();
-					
-				});
-				info= info + " seems to be lurking.";
-			}
-			
 			return info;
 		}
-			
+		
+		
+		this.getEnemy = function(){
+			return enemy;
+		}
+
+		 
+		
+		this.setEnemy = function(){
+			//console.log(monsters.length);
+			if(this.getEnemy() == null && monsters.length >0 ){
+
+				chance = Math.floor(Math.random()*(10+monsters.length));
+				if(chance >9){
+					spot=Math.floor(Math.random()*monsters.length);
+					enemy=_.first(monsters.splice(spot,1));
+				}
+			}else if(this.getEnemy() != null){
+				if(!enemy.isAlive()){
+					enemy = null;
+				}
+			}
+		}
 		
 	}
-
+	
+	
+	
+//-------------------end room DEF-----------------------------------------------------------------------------------------------
+	
+	
+	
+	
+	
 	var roomSet = new Array();
 	for(i=0;i<2000;i++){
 		roomSet[i] = new Array();
@@ -204,8 +223,8 @@ app.factory("floor", function(collectablesFactory,monsterFactory) {
 	
 	
 	//create new room
-	this.newRoom = function(x,y){
-		roomSet[x][y] = new Room();
+	this.newRoom = function(x,y,level){
+		roomSet[x][y] = new Room(level);
 		//alert("now in: " + x + " , " + y);
 		
 		//north door
@@ -264,7 +283,7 @@ app.factory("floor", function(collectablesFactory,monsterFactory) {
 		if(roomSet[x+1][y] != null){
 			if(roomSet[x+1][y].doors.west){
 				roomSet[x][y].doors.east = true;
-				if(roomSet[x+1][y].locks.east){
+				if(roomSet[x+1][y].locks.west){
 					roomSet[x][y].locks.east = true;
 				}else{
 					roomSet[x][y].locks.east = false;
@@ -315,10 +334,11 @@ app.factory("floor", function(collectablesFactory,monsterFactory) {
 
 	}
 	
-	this.getRoom = function(x,y) {
+	this.getRoom = function(x,y,level) {
 		if(!this.roomCheck(x,y)){
 			//alert(x + " - " + y);
-			this.newRoom(x,y);
+			this.newRoom(x,y,level);
+			//console.log(level);
 		}
 		return roomSet[x][y];
 	}

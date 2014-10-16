@@ -35,7 +35,7 @@ app.factory("collectablesFactory", function() {
 	}
 	
 	var unlockDoor=function(player){
-		direction =prompt("Which direction?");
+		direction =player.lastInput().replace("use Key ", "");
 		place =player.getLocation();
 		if(direction == "north"){
 			//north lock
@@ -44,9 +44,9 @@ app.factory("collectablesFactory", function() {
 				if(player.getRoom().nextRoomOver("north",place.x,place.y) != null){
 					player.getRoom().nextRoomOver("north",place.x,place.y).locks.south = !player.getRoom().nextRoomOver("north",place.x,place.y).locks.south;
 				}
-				player.outText = "***CLICK***"
+				return "***CLICK***";
 			}else{
-				player.outText="Ummmm...sooooo...you can't lock a wall. Just thought you should know that."
+				return"Ummmm...sooooo...you can't lock a wall. Just thought you should know that.";
 			}
 		}
 		
@@ -58,9 +58,9 @@ app.factory("collectablesFactory", function() {
 				if(player.getRoom().nextRoomOver("south",place.x,place.y) != null){
 					player.getRoom().nextRoomOver("south",place.x,place.y).locks.north = !player.getRoom().nextRoomOver("south",place.x,place.y).locks.north;
 				}
-				player.outText = "***CLICK***"
+				return "***CLICK***";
 			}else{
-				player.outText="Ummmm...sooooo...you can't lock a wall. Just thought you should know that."
+				return"Ummmm...sooooo...you can't lock a wall. Just thought you should know that.";
 			}
 		}
 		
@@ -72,9 +72,9 @@ app.factory("collectablesFactory", function() {
 				if(player.getRoom().nextRoomOver("east",place.x,place.y) != null){
 					player.getRoom().nextRoomOver("east",place.x,place.y).locks.west = !player.getRoom().nextRoomOver("east",place.x,place.y).locks.west;
 				}
-				player.outText = "***CLICK***"
+				return "***CLICK***";
 			}else{
-				player.outText="Ummmm...sooooo...you can't lock a wall. Just thought you should know that."
+				return"Ummmm...sooooo...you can't lock a wall. Just thought you should know that.";
 			}	
 		}
 		
@@ -86,9 +86,9 @@ app.factory("collectablesFactory", function() {
 				if(player.getRoom().nextRoomOver("west",place.x,place.y) != null){
 					player.getRoom().nextRoomOver("west",place.x,place.y).locks.east = !player.getRoom().nextRoomOver("west",place.x,place.y).locks.east;
 				}
-				player.outText = "***CLICK***"
+				return "***CLICK***";
 			}else{
-				player.outText="Ummmm...sooooo...you can't lock a wall. Just thought you should know that."
+				return"Ummmm...sooooo...you can't lock a wall. Just thought you should know that.";
 			}
 		}
 		
