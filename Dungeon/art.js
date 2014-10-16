@@ -39,7 +39,7 @@ var greeting =
 ".#.....#..#....#...#..#...#.......#...##....#....#....#..#...#...#......\n"+
 ".#.....#..#####.....##....######..#....#....#.....####...#....#..######.\n"+
 "........................................................................\n"+
-"\nPress tab twice to see a list of available commands\n";
+"\nPress tab twice to see a list of available commands or type help\n";
 
 var greetingold =
 "	___________.__    .__            _____              _____       .___                    __                        \n"+
