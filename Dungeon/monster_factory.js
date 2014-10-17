@@ -12,10 +12,10 @@ app.factory("monsterFactory", function() {
 		var health = 10*level;
 		
 		var maxMana = 10*level;
-		var health = 10*level;
+		var mana = 10*level;
 		
 		var maxVitality = 10*level;
-		var health = 10*level;
+		var vitality = 10*level;
 		
 		var skills = { physiq: 1, senses: 1, intellegence: 1};
 		

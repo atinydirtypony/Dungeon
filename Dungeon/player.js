@@ -29,7 +29,14 @@ app.factory("player", function(floor) {
 	var types=[elements.human];
 	//console.log(types[0].getName());
 	
-	var attacks =[];
+	var attacks ={};
+	
+	var ATK = new ability(elements.human,20);
+	console.log(ATK);
+	allbilities[ATK.getName().replace(" ","")] = ATK;
+	attacks[ATK.getName().replace(" ","")] = ATK;
+	ATK=null;
+	
 	
 	
 	this.setInput = function(text){
@@ -309,12 +316,20 @@ app.factory("player", function(floor) {
 		return colors;
 	}
 	
-	this.getAttack = function(){
-		return {name: kick}
+	this.getAttack = function(name){
+		return attacks[name.replace(" ","")];
 	}
 	
 	this.getSkills = function(){
 		return skills;
+	}
+	
+	this.getATKnames =function(){
+		var names = [];
+		_.each(attacks, function(attack){
+			names.push(attack.getName());
+		});
+		return names;
 	}
 	
 	return this;

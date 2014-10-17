@@ -5,6 +5,10 @@ app.factory("terminal", function(player, floor) {
 	var $scope;
 	
 	var commands = ["map","look","move", "WALLS", "teleport", "pick", "inventory", "use", "list", "help"];
+	commands = commands.concat(player.getATKnames());
+	fights =player.getATKnames();
+	console.log(commands);
+	
 	
 	var autoComplete = function(terminal, string, callback) {
 		var current = terminal.get_command();
@@ -36,7 +40,7 @@ app.factory("terminal", function(player, floor) {
 		if(command == ""){
 			return;
 		}
-		if(_.contains(commands, command.split(" ")[0])) {
+		if(_.contains(commands, command.split(" ")[0]) || _.contains(fights, command)) {
 			player.setInput(command);
 			//console.log(player.lastInput());
 			///----------------------------------------------------------------------------------
@@ -49,6 +53,7 @@ app.factory("terminal", function(player, floor) {
 			}else{
 				battle = false;
 			}
+			var playerATK =null;
 			
 			//check for insanity and possibly use random
 			if(player.getSanity()){
@@ -95,6 +100,15 @@ app.factory("terminal", function(player, floor) {
 			}
 			
 			
+			//set up players attack
+			_.each(player.getATKnames(),function(ATKcommand){
+				if(command.indexOf(ATKcommand) >= 0 && battle){
+					playerATK = player.getAttack(ATKcommand);
+					//console.log(playerATK.getName());
+				}else if(command.indexOf(ATKcommand) >= 0 && !battle){
+					echo("Not in battle!");
+				}
+			})
 			
 			
 			//moves player
@@ -215,12 +229,79 @@ app.factory("terminal", function(player, floor) {
 
 			
 			if(battle){
-				if(attack.getStyle().checkHit()){
-					target = _.sample(["physiq","senses","intellegence"]);
-					echo(player.getRoom().getEnemy().getName()+" used "+attack.getName());
-					damage =attack.damageCalc(player.getRoom().getEnemy(),player, target);
-					console.log(damage);
-					player.statAdjust(-damage,0,0);
+				if(playerATK != null){
+					var targets =["physiq","senses","intellegence"];
+					var pTarget = _.sample(targets);
+					var target = _.sample(targets);
+					var damage =attack.damageCalc(player.getRoom().getEnemy(),player, target);
+					var hit = playerATK.damageCalc(player, player.getRoom().getEnemy(), pTarget);
+					if((_.indexOf(targets, pTarget)+1)%3 == _.indexOf(targets, target)){
+						if(attack.getStyle().checkHit()){
+							player.statAdjust(-damage,0,0);
+							echo(player.getRoom().getEnemy().getName()+" used "+attack.getName()+" againt your "+target);
+						}else{
+							echo(player.getRoom().getEnemy().getName()+" missed!");
+						}
+						if(playerATK.getStyle().checkHit()){
+							player.getRoom().getEnemy().statAdjust(-hit,0,0);
+							echo("You used "+playerATK.getName()+" againt its "+pTarget);
+						}else{
+							echo("You missed!");
+						}
+						
+					}else if((_.indexOf(targets, target)+1)%3 == _.indexOf(targets, pTarget)){
+						if(playerATK.getStyle().checkHit()){
+							player.getRoom().getEnemy().statAdjust(-hit,0,0);
+							echo("You used "+playerATK.getName()+" againt its "+pTarget);
+						}else{
+							echo("You missed!");
+						}
+						if(attack.getStyle().checkHit()){
+							player.statAdjust(-damage,0,0);
+							echo(player.getRoom().getEnemy().getName()+" used "+attack.getName()+" againt your "+target);
+						}else{
+							echo(player.getRoom().getEnemy().getName()+" missed!");
+						}
+					}else{
+						if(Math.floor(Math.random()*2)){
+							if(attack.getStyle().checkHit()){
+								player.statAdjust(-damage,0,0);
+								echo(player.getRoom().getEnemy().getName()+" used "+attack.getName()+" againt your "+target);
+							}else{
+								echo(player.getRoom().getEnemy().getName()+" missed!");
+							}
+							if(playerATK.getStyle().checkHit()){
+								player.getRoom().getEnemy().statAdjust(-hit,0,0);
+								echo("You used "+playerATK.getName()+" againt its "+pTarget);
+							}else{
+								echo("You missed!");
+							}
+						}else{
+							if(playerATK.getStyle().checkHit()){
+								player.getRoom().getEnemy().statAdjust(-hit,0,0);
+								echo("You used "+playerATK.getName()+" againt its "+pTarget);
+							}else{
+								echo("You missed!");
+							}
+							if(attack.getStyle().checkHit()){
+								player.statAdjust(-damage,0,0);
+								echo(player.getRoom().getEnemy().getName()+" used "+attack.getName()+" againt your "+target);
+							}else{
+								echo(player.getRoom().getEnemy().getName()+" missed!");
+							}
+						}
+						
+					}
+				}else{
+					if(attack.getStyle().checkHit()){
+						var target = _.sample(["physiq","senses","intellegence"]);
+						echo(player.getRoom().getEnemy().getName()+" used "+attack.getName());
+						var damage =attack.damageCalc(player.getRoom().getEnemy(),player, target);
+						console.log(damage);
+						player.statAdjust(-damage,0,0);
+					}else{
+						echo(player.getRoom().getEnemy().getName()+" missed!");
+					}
 				}
 				
 			}
