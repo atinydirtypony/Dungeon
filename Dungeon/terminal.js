@@ -196,12 +196,6 @@ app.factory("terminal", function(player, floor) {
 			if(command.indexOf("use") >= 0 ){
 				item = command.replace("use ", "");
 				
-				//remove direction
-				item=item.replace("north", "").trim();
-				item=item.replace("east", "").trim();
-				item=item.replace("south", "").trim();
-				item=item.replace("west", "").trim();
-				
 				console.log(item);
 				
 				result = player.hasItem(item);
