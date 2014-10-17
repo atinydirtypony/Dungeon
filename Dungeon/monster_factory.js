@@ -161,7 +161,12 @@ app.factory("monsterFactory", function() {
 				console.log(attack.getName()+": "+attack.getPower());
 			});
 		}
-		this.printOut();
+		
+		this.getAttack =function(){
+			return _.sample(attacks);
+		}
+		
+		//this.printOut();
 	}
 	
 	this.createMonster = function(roomTypes, plevel) {

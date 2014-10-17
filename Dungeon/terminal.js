@@ -44,6 +44,7 @@ app.factory("terminal", function(player, floor) {
 			//console.log(player.getRoom().getEnemy());
 			if( player.getRoom().getEnemy() != null){
 				echo("**********A "+player.getRoom().getEnemy().getName()+ " is attacking!**********");
+				attack=player.getRoom().getEnemy().getAttack();
 				battle = true;
 			}else{
 				battle = false;
@@ -211,9 +212,17 @@ app.factory("terminal", function(player, floor) {
 					echo(mapScape[i]);
 				}
 			}
+
 			
 			if(battle){
-				player.statAdjust(-5,0,0);
+				if(attack.getStyle().checkHit()){
+					target = _.sample(["physiq","senses","intellegence"]);
+					echo(player.getRoom().getEnemy().getName()+" used "+attack.getName());
+					damage =attack.damageCalc(player.getRoom().getEnemy(),player, target);
+					console.log(damage);
+					player.statAdjust(-damage,0,0);
+				}
+				
 			}
 
 		} else {

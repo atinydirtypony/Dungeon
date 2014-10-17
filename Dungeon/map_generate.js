@@ -188,7 +188,7 @@ app.factory("floor", function(collectablesFactory,monsterFactory) {
 		 
 		
 		this.setEnemy = function(){
-			//console.log(monsters.length);
+			console.log(monsters.length);
 			if(this.getEnemy() == null && monsters.length >0 ){
 
 				chance = Math.floor(Math.random()*(10+monsters.length));
