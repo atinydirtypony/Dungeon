@@ -122,7 +122,7 @@ elements.animal.setCross(["light", "machine", "human", "plant", "air"],[2,2,2,0.
 elements.animal.setPSI(0,1,-1);
 
 
-var human = new element( "human", [ "Bedroom", "Cottage", "Livingroom"], {fighter: "Bro", balanced: "Villager", sensor: "Receptionist", mental: "Geek"}, [ "Human Arms and Huamn Legs on a", "Humanoid", "Normal"],  "health", "CCFFFF");
+var human = new element( "human", [ "Bedroom", "Cottage", "Livingroom"], {fighter: "Bro", balanced: "Villager", sensor: "Receptionist", mental: "Geek"}, [ "Boring", "Humanoid", "Normal"],  "health", "CCFFFF");
 elements.human.setPSI(-1,0,1);
 
 

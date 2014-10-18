@@ -32,12 +32,26 @@ app.factory("player", function(floor) {
 	var attacks ={};
 	
 	var ATK = new ability(elements.human,20);
-	console.log(ATK);
+	//console.log(ATK);
 	allbilities[ATK.getName().replace(" ","")] = ATK;
 	attacks[ATK.getName().replace(" ","")] = ATK;
 	ATK=null;
+	/*for(i=0;i<4;i++){
+		ATK = new ability(_.sample(elements),20);
+		console.log(ATK);
+		allbilities[ATK.getName().replace(" ","")] = ATK;
+		attacks[ATK.getName().replace(" ","")] = ATK;
+		ATK=null;
+	}*/
 	
 	
+	this.addAttack = function(attack){
+		allbilities[attack.getName().replace(" ","")] = attack;
+		attacks[attack.getName().replace(" ","")] = attack;
+		_.each(attacks, function(ATK){
+			console.log(ATK.getName());
+		});
+	}
 	
 	this.setInput = function(text){
 		input = text;
@@ -252,10 +266,11 @@ app.factory("player", function(floor) {
 			names.push(slot.name);
 		});
 		var index=_.indexOf(names,item);
-		inventory[type][index].use(this);
+		text = inventory[type][index].use(this);
 		if(inventory[type][index].checkExpire()){
 			inventory[type].splice(index, 1);
 		}
+		return text;
 	}
 	
 	this.getLocation = function(){
@@ -331,6 +346,7 @@ app.factory("player", function(floor) {
 		});
 		return names;
 	}
+	
 	
 	return this;
 });

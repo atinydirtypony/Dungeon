@@ -5,8 +5,8 @@ app.factory("terminal", function(player, floor) {
 	var $scope;
 	
 	var commands = ["map","look","move", "WALLS", "teleport", "pick", "inventory", "use", "list", "help", "attacks"];
-	commands = commands.concat(player.getATKnames());
-	fights =player.getATKnames();
+	
+	var fights =player.getATKnames();
 	console.log(commands);
 	
 	
@@ -206,6 +206,12 @@ app.factory("terminal", function(player, floor) {
 			if(command.indexOf("use") >= 0 ){
 				item = command.replace("use ", "");
 				
+				if(command.indexOf("Key") >= 0 ){
+					item = "Key";
+				}
+				
+				
+				
 				console.log(item);
 				
 				result = player.hasItem(item);
@@ -358,14 +364,16 @@ app.factory("terminal", function(player, floor) {
 						
 					}
 				}else{
-					if(attack.getStyle().checkHit()){
-						var target = _.sample(["physiq","senses","intellegence"]);
-						echo(player.getRoom().getEnemy().getName()+" used "+attack.getName());
-						var damage =attack.damageCalc(player.getRoom().getEnemy(),player, target);
-						console.log(damage);
-						player.statAdjust(-damage,0,0);
+					var target = _.sample(["physiq","senses","intellegence"]);
+					var damage =attack.damageCalc(player.getRoom().getEnemy(),player, target);
+					if(attack.getStyle().statReduce(player.getRoom().getEnemy())){
+						if(attack.getStyle().checkHit()){
+							player.statAdjust(-damage,0,0);
+							echo(player.getRoom().getEnemy().getName()+" used "+attack.getName()+" againt your "+target);
+						}else{
+							echo(player.getRoom().getEnemy().getName()+" missed!");							}
 					}else{
-						echo(player.getRoom().getEnemy().getName()+" missed!");
+						echo(player.getRoom().getEnemy().getName()+" could not attack!");
 					}
 				}
 				
@@ -376,7 +384,7 @@ app.factory("terminal", function(player, floor) {
 			}
 			
 			
-			
+			fights =player.getATKnames();
 
 		} else {
 			echo("I don't understand " + command);

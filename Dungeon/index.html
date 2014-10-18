@@ -74,7 +74,11 @@
 						<li ng-repeat="stat in player.getStats()" style="color: {{stat.color}};">{{stat.name}}: {{stat.current}} of {{stat.maximum}}</li>
 					</ul>
 				</div>
-
+				<div id="attacks">
+					<ul>
+						<li ng-repeat="ATK in player.getATKnames()" style="color: {{player.getAttack(ATK).getType().getColor()}};">{{ATK}}</li>
+					</ul>
+				</div>
 			</div>
 			
 		</div>

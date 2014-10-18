@@ -71,6 +71,21 @@ body{
 	
 }
 
+#attacks ul{
+	position: absolute;
+	top: 370px;
+	left: 7px;
+	
+}
+
+#attacks li{
+	height: 30px;
+	font-family:monospace;	
+	list-style:none;
+	font-size:x-small;
+	margin-bottom: 31px;
+}
+
 .room_info{
 	display: inline-block;
 	border: black solid 6px;

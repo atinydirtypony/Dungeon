@@ -8,7 +8,7 @@ app.factory("collectablesFactory", function() {
 		return function(player){
 			//console.log(n);
 			player.statAdjust(n,0,0);
-			
+			return {text: "You healed "+n+" health", result: true};
 		}
 	}
 	
@@ -19,7 +19,7 @@ app.factory("collectablesFactory", function() {
 		return function(player){
 			//console.log(n);
 			player.statAdjust(0,n,0);
-			
+			return {text: "You healed "+n+" mana", result: true};
 		}
 	}
 	
@@ -30,6 +30,7 @@ app.factory("collectablesFactory", function() {
 		return function(player){
 			//console.log(n);
 			player.statAdjust(0,0,n);
+			return {text: "You healed "+n+" vitality", result: true};
 			
 		}
 	}
@@ -44,9 +45,9 @@ app.factory("collectablesFactory", function() {
 				if(player.getRoom().nextRoomOver("north",place.x,place.y) != null){
 					player.getRoom().nextRoomOver("north",place.x,place.y).locks.south = !player.getRoom().nextRoomOver("north",place.x,place.y).locks.south;
 				}
-				return "***CLICK***";
+				return {text:"***CLICK***", result: true};
 			}else{
-				return"Ummmm...sooooo...you can't lock a wall. Just thought you should know that.";
+				return {text:"Ummmm...sooooo...you can't lock a wall. Just thought you should know that.", result: false};
 			}
 		}
 		
@@ -58,9 +59,9 @@ app.factory("collectablesFactory", function() {
 				if(player.getRoom().nextRoomOver("south",place.x,place.y) != null){
 					player.getRoom().nextRoomOver("south",place.x,place.y).locks.north = !player.getRoom().nextRoomOver("south",place.x,place.y).locks.north;
 				}
-				return "***CLICK***";
+				return {text:"***CLICK***", result: true};
 			}else{
-				return"Ummmm...sooooo...you can't lock a wall. Just thought you should know that.";
+				return {text:"Ummmm...sooooo...you can't lock a wall. Just thought you should know that.", result: false};
 			}
 		}
 		
@@ -72,9 +73,9 @@ app.factory("collectablesFactory", function() {
 				if(player.getRoom().nextRoomOver("east",place.x,place.y) != null){
 					player.getRoom().nextRoomOver("east",place.x,place.y).locks.west = !player.getRoom().nextRoomOver("east",place.x,place.y).locks.west;
 				}
-				return "***CLICK***";
+				return {text:"***CLICK***", result: true};
 			}else{
-				return"Ummmm...sooooo...you can't lock a wall. Just thought you should know that.";
+				return {text:"Ummmm...sooooo...you can't lock a wall. Just thought you should know that.", result: false};
 			}	
 		}
 		
@@ -86,9 +87,9 @@ app.factory("collectablesFactory", function() {
 				if(player.getRoom().nextRoomOver("west",place.x,place.y) != null){
 					player.getRoom().nextRoomOver("west",place.x,place.y).locks.east = !player.getRoom().nextRoomOver("west",place.x,place.y).locks.east;
 				}
-				return "***CLICK***";
+				return {text:"***CLICK***", result: true};
 			}else{
-				return"Ummmm...sooooo...you can't lock a wall. Just thought you should know that.";
+				return {text:"Ummmm...sooooo...you can't lock a wall. Just thought you should know that.", result: false};
 			}
 		}
 		
@@ -107,10 +108,21 @@ app.factory("collectablesFactory", function() {
 			types.push(staticType);
 			player.setTypes(types);
 			console.log(types.length);
+			return {text: "You have changed your type to "+type.getName(), result: true}
 		}
 		
 	}
 		
+	var stealPower = function(player){
+		if(player.getRoom().getEnemy() != null){
+			var ATK =player.getRoom().getEnemy().getAttack();
+			player.addAttack(ATK);
+			return{text: ATK.getName() + " was gained", result: true }
+		}else{
+			return {text:"Nothing was gained", result: false};
+		}
+		
+	}
 		
 	
 	//<----------------------------------actual items----------------------------------------------------------------->
@@ -123,10 +135,19 @@ app.factory("collectablesFactory", function() {
 
 		
 		this.use = function(player){
-			uses-=1;
+			used = true;
+			var text = "";
 			_.each(this.functions,function(doIt){
-				doIt(player);
+				check = doIt(player);
+				if(!check.result){
+					used = false;
+				}
+				text+=check.text+"\n";
 			});
+			if(used){
+				uses-=1;
+			}
+			return text;
 		}
 		
 		this.changeUses=function(t){
@@ -193,7 +214,7 @@ app.factory("collectablesFactory", function() {
 	this.createKey = function() {
 		var core = new item();
 		
-		core.type = "key";
+		core.type = "Special";
 		core.name = "Key";
 		
 		core.functions.push(unlockDoor);
@@ -324,6 +345,18 @@ app.factory("collectablesFactory", function() {
 		
 		core.name = type.getName()+ " "+core.name;
 		core.name = core.name[0].toUpperCase() + core.name.slice(1);
+		
+		return core;
+		
+	}
+	
+	this.createMirror = function(){
+		core = new item;
+		
+		core.functions.push(stealPower);
+		
+		core.type = "Special";
+		core.name ="Mystic Mirror";
 		
 		return core;
 		

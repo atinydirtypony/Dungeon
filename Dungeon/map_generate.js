@@ -64,7 +64,7 @@ app.factory("floor", function(collectablesFactory,monsterFactory) {
 			collectables.push(collectablesFactory.createIdol(type2))
 		}
 		
-		collectables.push(collectablesFactory.createIdol());
+		collectables.push(collectablesFactory.createMirror());
 		
 		this.getName = function(){
 			return name;
