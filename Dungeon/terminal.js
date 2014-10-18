@@ -4,7 +4,7 @@ app.factory("terminal", function(player, floor) {
 	
 	var $scope;
 	
-	var commands = ["map","look","move", "WALLS", "teleport", "pick", "inventory", "use", "list", "help"];
+	var commands = ["map","look","move", "WALLS", "teleport", "pick", "inventory", "use", "list", "help", "attacks"];
 	commands = commands.concat(player.getATKnames());
 	fights =player.getATKnames();
 	console.log(commands);
@@ -48,6 +48,7 @@ app.factory("terminal", function(player, floor) {
 			//console.log(player.getRoom().getEnemy());
 			if( player.getRoom().getEnemy() != null){
 				echo("**********A "+player.getRoom().getEnemy().getName()+ " is attacking!**********");
+				echo("----\tH: "+player.getRoom().getEnemy().getStats()[0].current+"\t----" );
 				attack=player.getRoom().getEnemy().getAttack();
 				battle = true;
 			}else{
@@ -87,16 +88,25 @@ app.factory("terminal", function(player, floor) {
 			}
 			
 			if(command.indexOf("help") >= 0){
-				echo("*****Help*****\n\n"+
-						"map ==> display a map of the local area\n\n"+
-						"look ==> tells you the rooms surroundings\n\n"+
-						"move + (north,south,east,west) ==> moves you to a different room\n\n"+
-						"pick up + (full item name) ==> picks up item\n\n"+
-						"use + (full item name) ==> uses item\n\n"+
-						"inventory ==> tells you the number of each type of item you have \n\n"+
-						"list + (type) ==> list the items of type"
+				echo("*****HELP*****\n\n"+
+						"map ==> display a map of the local area\n"+
+						"look ==> tells you the rooms surroundings\n"+
+						"move + (north,south,east,west) ==> moves you to a different room\n"+
+						"pick up + (full item name) ==> picks up item\n"+
+						"use + (full item name) ==> uses item\n"+
+						"inventory ==> tells you the number of each type of item you have \n"+
+						"list + (type) ==> list the items of type\n"+
+						"attacks ==> lists out all attacks known\n\n"
 						
 				);
+			}
+			
+			if(command.indexOf("attacks") >= 0){
+				var string =""
+				_.each(fights, function(name){
+					string+="!!!"+name+"!!!"+player.getAttack(name).getStyle().getInfo()+"\t Power: "+player.getAttack(name).getPower()+"\n\n";
+				})
+				echo(string);
 			}
 			
 			
@@ -229,59 +239,120 @@ app.factory("terminal", function(player, floor) {
 					var target = _.sample(targets);
 					var damage =attack.damageCalc(player.getRoom().getEnemy(),player, target);
 					var hit = playerATK.damageCalc(player, player.getRoom().getEnemy(), pTarget);
+					_.each(player.getRoom().getEnemy().getTypes(), function(defenseT){
+						
+						hit = hit * defenseT.getCross(playerATK.getType());
+					});
+					_.each(player.getTypes(), function(defenseT){
+						
+						damage = damage * defenseT.getCross(attack.getType());
+					});
+					
+					
+					
 					if((_.indexOf(targets, pTarget)+1)%3 == _.indexOf(targets, target)){
-						if(attack.getStyle().checkHit()){
-							player.statAdjust(-damage,0,0);
-							echo(player.getRoom().getEnemy().getName()+" used "+attack.getName()+" againt your "+target);
+						
+						if(attack.getStyle().statReduce(player.getRoom().getEnemy())){
+							if(attack.getStyle().checkHit()){
+								player.statAdjust(-damage,0,0);
+								echo(player.getRoom().getEnemy().getName()+" used "+attack.getName()+" againt your "+target);
+							}else{
+								echo(player.getRoom().getEnemy().getName()+" missed!");
+							}
 						}else{
-							echo(player.getRoom().getEnemy().getName()+" missed!");
-						}
-						if(playerATK.getStyle().checkHit()){
-							player.getRoom().getEnemy().statAdjust(-hit,0,0);
-							echo("You used "+playerATK.getName()+" againt its "+pTarget);
-						}else{
-							echo("You missed!");
+							echo(player.getRoom().getEnemy().getName()+" could not attack!");
 						}
 						
+						if(playerATK.getStyle().statReduce(player)){
+							if(playerATK.getStyle().checkHit()){
+								player.getRoom().getEnemy().statAdjust(-hit,0,0);
+								echo("You used "+playerATK.getName()+" againt its "+pTarget);
+							}else{
+								echo("You missed!");
+							}
+						}else{
+							echo("You could not attack!");
+						}
+						
+						
 					}else if((_.indexOf(targets, target)+1)%3 == _.indexOf(targets, pTarget)){
-						if(playerATK.getStyle().checkHit()){
-							player.getRoom().getEnemy().statAdjust(-hit,0,0);
-							echo("You used "+playerATK.getName()+" againt its "+pTarget);
+						
+						
+						if(playerATK.getStyle().statReduce(player)){
+							if(playerATK.getStyle().checkHit()){
+								player.getRoom().getEnemy().statAdjust(-hit,0,0);
+								echo("You used "+playerATK.getName()+" againt its "+pTarget);
+							}else{
+								echo("You missed!");
+							}
 						}else{
-							echo("You missed!");
+							echo("You could not attack!");
 						}
-						if(attack.getStyle().checkHit()){
-							player.statAdjust(-damage,0,0);
-							echo(player.getRoom().getEnemy().getName()+" used "+attack.getName()+" againt your "+target);
+						
+						
+						if(attack.getStyle().statReduce(player.getRoom().getEnemy())){
+							if(attack.getStyle().checkHit()){
+								player.statAdjust(-damage,0,0);
+								echo(player.getRoom().getEnemy().getName()+" used "+attack.getName()+" againt your "+target);
+							}else{
+								echo(player.getRoom().getEnemy().getName()+" missed!");
+							}
 						}else{
-							echo(player.getRoom().getEnemy().getName()+" missed!");
+							echo(player.getRoom().getEnemy().getName()+" could not attack!");
 						}
+						
+						
 					}else{
 						if(Math.floor(Math.random()*2)){
-							if(attack.getStyle().checkHit()){
-								player.statAdjust(-damage,0,0);
-								echo(player.getRoom().getEnemy().getName()+" used "+attack.getName()+" againt your "+target);
+							
+							
+							if(attack.getStyle().statReduce(player.getRoom().getEnemy())){
+								if(attack.getStyle().checkHit()){
+									player.statAdjust(-damage,0,0);
+									echo(player.getRoom().getEnemy().getName()+" used "+attack.getName()+" againt your "+target);
+								}else{
+									echo(player.getRoom().getEnemy().getName()+" missed!");
+								}
 							}else{
-								echo(player.getRoom().getEnemy().getName()+" missed!");
+								echo(player.getRoom().getEnemy().getName()+" could not attack!");
 							}
-							if(playerATK.getStyle().checkHit()){
-								player.getRoom().getEnemy().statAdjust(-hit,0,0);
-								echo("You used "+playerATK.getName()+" againt its "+pTarget);
+							
+							if(playerATK.getStyle().statReduce(player)){
+								if(playerATK.getStyle().checkHit()){
+									player.getRoom().getEnemy().statAdjust(-hit,0,0);
+									echo("You used "+playerATK.getName()+" againt its "+pTarget);
+								}else{
+									echo("You missed!");
+								}
 							}else{
-								echo("You missed!");
+								echo("You could not attack!");
 							}
+							
+							
 						}else{
-							if(playerATK.getStyle().checkHit()){
-								player.getRoom().getEnemy().statAdjust(-hit,0,0);
-								echo("You used "+playerATK.getName()+" againt its "+pTarget);
+							
+							
+							if(playerATK.getStyle().statReduce(player)){
+								if(playerATK.getStyle().checkHit()){
+									player.getRoom().getEnemy().statAdjust(-hit,0,0);
+									echo("You used "+playerATK.getName()+" againt its "+pTarget);
+								}else{
+									echo("You missed!");
+								}
 							}else{
-								echo("You missed!");
+								echo("You could not attack!");
 							}
-							if(attack.getStyle().checkHit()){
-								player.statAdjust(-damage,0,0);
-								echo(player.getRoom().getEnemy().getName()+" used "+attack.getName()+" againt your "+target);
+							
+							
+							if(attack.getStyle().statReduce(player.getRoom().getEnemy())){
+								if(attack.getStyle().checkHit()){
+									player.statAdjust(-damage,0,0);
+									echo(player.getRoom().getEnemy().getName()+" used "+attack.getName()+" againt your "+target);
+								}else{
+									echo(player.getRoom().getEnemy().getName()+" missed!");
+								}
 							}else{
-								echo(player.getRoom().getEnemy().getName()+" missed!");
+								echo(player.getRoom().getEnemy().getName()+" could not attack!");
 							}
 						}
 						
@@ -298,7 +369,14 @@ app.factory("terminal", function(player, floor) {
 					}
 				}
 				
+				if(!player.getRoom().getEnemy().isAlive()){
+					echo(player.getRoom().getEnemy().getName() + " has died.");
+				}
+				
 			}
+			
+			
+			
 
 		} else {
 			echo("I don't understand " + command);

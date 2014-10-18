@@ -8,14 +8,14 @@ app.factory("monsterFactory", function() {
 			level = 1;
 		}
 		
-		var maxHealth = 10*level;
-		var health = 10*level;
+		var maxHealth = 50+ 2*level;
+		var health =50+ 2*level;
 		
-		var maxMana = 10*level;
-		var mana = 10*level;
+		var maxMana = 50+2*level;
+		var mana = 50+2*level;
 		
-		var maxVitality = 10*level;
-		var vitality = 10*level;
+		var maxVitality = 50+2*level;
+		var vitality = 50+2*level;
 		
 		var skills = { physiq: 1, senses: 1, intellegence: 1};
 		
@@ -80,25 +80,9 @@ app.factory("monsterFactory", function() {
 		}
 		
 		
-		var attack_count = Math.floor(level/5)+1;
-		if(attack_count>5){
-			attack_count =5;
-		}
-		attacks = {};
-		for(i=0;i<attack_count;i++){
-			var ATK = new ability(_.sample(types),15+level);
-			if(allbilities[ATK.getName().replace(" ","")] == null){
-				allbilities[ATK.getName().replace(" ","")] = ATK;
-				attacks[ATK.getName().replace(" ","")] = ATK;
-			}else{
-				attacks[ATK.getName().replace(" ","")]=allbilities[ATK.getName().replace(" ","")];
-			}
-		}
 		
 		
-		
-		
-		num = Math.floor(Math.random()*10);
+num = Math.floor(Math.random()*10);
 		
 		if(num < 3){
 			monsterClass = "fighter";
@@ -128,12 +112,33 @@ app.factory("monsterFactory", function() {
 			name =types[i+1].getDescriptor() +" "+name ;
 		}
 		
+		
+		
+		
+		var attack_count = Math.floor(level/5)+1;
+		if(attack_count>5){
+			attack_count =5;
+		}
+		attacks = {};
+		for(i=0;i<attack_count;i++){
+			var crtType = _.sample(types);
+			console.log(name+ ": "+crtType.getName());
+			var ATK = new ability(crtType,15+level);
+			if(allbilities[ATK.getName().replace(" ","")] == null){
+				allbilities[ATK.getName().replace(" ","")] = ATK;
+				attacks[ATK.getName().replace(" ","")] = ATK;
+			}else{
+				attacks[ATK.getName().replace(" ","")]=allbilities[ATK.getName().replace(" ","")];
+			}
+		}
+		
+		
 		this.getName = function() {
 			return name;
 		}
 		
-		this.getType = function() {
-			return monsterType;
+		this.getTypes = function() {
+			return types;
 		}
 		
 		this.isAlive = function(){
@@ -146,12 +151,13 @@ app.factory("monsterFactory", function() {
 			vitality+=V;
 		}
 		
-		this.getAttack = function(){
-			return {name:punch}
-		}
 		
 		this.getSkills =function(){
 			return  skills;
+		}
+		
+		this.getStats = function(){
+			return [{current: health}, {current: mana},{current: vitality}];
 		}
 		
 		this.printOut = function(){

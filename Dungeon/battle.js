@@ -22,7 +22,7 @@ var fight_style = function(attack_skill, attack_name){
 		mana_use = Math.floor(Math.random()*21);
 	}
 	
-	//console.log(health_use+" "+mana_use+" "+vitality_use);
+	console.log(health_use+" "+mana_use+" "+vitality_use);
 	
 	this.checkHit =function(){
 		var chance = 1+Math.floor(Math.random()*100);
@@ -42,8 +42,12 @@ var fight_style = function(attack_skill, attack_name){
 		}
 	}
 	
+	this.getInfo = function(){
+		return " ==> ( H:"+health_use+" M:"+mana_use+ " V:"+vitality_use+" ) \nAccuracy: "+accuracy+"\t Secondary Effect Chance: "+chance_extra;
+	}
+	
 	this.effectiveRatio = function(){
-			var cost = (3*health_use+1.5*mana_use+vitality_use)/45;
+			var cost = (4*health_use+3*mana_use+2*vitality_use)/60;
 			var enchancer= accuracy/100*(1+0.5*(chance_extra/100));
 			//console.log("cost: "+cost);
 			//console.log("enchancer: "+enchancer);
@@ -51,7 +55,15 @@ var fight_style = function(attack_skill, attack_name){
 	}
 	
 	this.statReduce =function(player){
-		player.statAdjust(health_use, mana_use, vitality_use);
+		if(player.getStats()[0].current > health_use && player.getStats()[1].current > mana_use && player.getStats()[2].current > vitality_use){
+			console.log("H: "+ player.getStats()[0].current+ " M: "+ player.getStats()[1].current +" V: "+ player.getStats()[2].current);
+			player.statAdjust(-health_use, -mana_use, -vitality_use);
+			console.log("H: "+ player.getStats()[0].current+ " M: "+ player.getStats()[1].current +" V: "+ player.getStats()[2].current);
+			return true;
+		}else{
+			return false;
+		}
+		
 	}
 	
 	
@@ -66,7 +78,7 @@ var ability = function(T, goal){
 	var style = _.sample(fight_styles);
 	//console.log(style.effectiveRatio());
 	var name = type.getDescriptor()+ " "+style.name;
-	var power = Math.floor((goal-10+Math.floor(Math.random()*20))/(style.effectiveRatio()));
+	var power = Math.ceil((goal-10+Math.floor(Math.random()*20))/(style.effectiveRatio()));
 	//console.log(power);
 	
 	this.getStyle =function(){
@@ -89,6 +101,10 @@ var ability = function(T, goal){
 		console.log("2: "+skill2);
 		console.log("power: "+power);
 		return Math.sqrt(Math.sqrt((skill1/skill2)))*power;
+	}
+	
+	this.getType = function(){
+		return type;
 	}
 	
 }
