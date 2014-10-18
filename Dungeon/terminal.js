@@ -7,7 +7,7 @@ app.factory("terminal", function(player, floor) {
 	var commands = ["map","look","move", "WALLS", "teleport", "pick", "inventory", "use", "list", "help", "attacks"];
 	
 	var fights =player.getATKnames();
-	console.log(commands);
+	//console.log(commands);
 	
 	
 	var autoComplete = function(terminal, string, callback) {
@@ -99,6 +99,8 @@ app.factory("terminal", function(player, floor) {
 						"attacks ==> lists out all attacks known\n\n"
 						
 				);
+				player.addExperience(1);
+				//console.log(player.getSkills());
 			}
 			
 			if(command.indexOf("attacks") >= 0){
@@ -253,7 +255,8 @@ app.factory("terminal", function(player, floor) {
 						
 						damage = damage * defenseT.getCross(attack.getType());
 					});
-					
+					 hit = Math.ceil(hit);
+					 damage = Math.ceil(hit);
 					
 					
 					if((_.indexOf(targets, pTarget)+1)%3 == _.indexOf(targets, target)){
@@ -366,6 +369,11 @@ app.factory("terminal", function(player, floor) {
 				}else{
 					var target = _.sample(["physiq","senses","intellegence"]);
 					var damage =attack.damageCalc(player.getRoom().getEnemy(),player, target);
+					_.each(player.getTypes(), function(defenseT){
+						
+						damage = damage * defenseT.getCross(attack.getType());
+					});
+					damage = Math.ceil(damage);
 					if(attack.getStyle().statReduce(player.getRoom().getEnemy())){
 						if(attack.getStyle().checkHit()){
 							player.statAdjust(-damage,0,0);
@@ -379,6 +387,8 @@ app.factory("terminal", function(player, floor) {
 				
 				if(!player.getRoom().getEnemy().isAlive()){
 					echo(player.getRoom().getEnemy().getName() + " has died.");
+					echo("You gained "+player.getRoom().getEnemy().getExperience()+" experience!");
+					player.addExperience(player.getRoom().getEnemy().getExperience());
 				}
 				
 			}

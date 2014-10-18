@@ -3,7 +3,7 @@ app.factory("monsterFactory", function() {
 	
 	var Monster = function(roomTypes, plevel) {
 		var name ="";
-		var level = Math.floor(Math.random()*7)+plevel-3;
+		var level = Math.floor(Math.random()*(2*Math.floor(plevel/3)+1))+plevel-Math.floor(plevel/3);
 		if(level<1){
 			level = 1;
 		}
@@ -86,24 +86,24 @@ num = Math.floor(Math.random()*10);
 		
 		if(num < 3){
 			monsterClass = "fighter";
-			physiq = level*4;
-			senses = level*1;
-			intellegence = level*1;
+			skills.physiq = level*4;
+			skills.senses = level*1;
+			skills.intellegence = level*1;
 		}else if(num>=3 && num <6){
 			monsterClass = "sensor";
-			physiq = level*1;
-			senses = level*4;
-			intellegence = level*1;
+			skills.physiq = level*1;
+			skills.senses = level*4;
+			skills.intellegence = level*1;
 		}else if(num>=6 && num <9){
 			monsterClass = "mental";
-			physiq = level*1;
-			senses = level*1;
-			intellegence = level*4;
+			skills.physiq = level*1;
+			skills.senses = level*1;
+			skills.intellegence = level*4;
 		}else{
 			monsterClass = "balanced";
-			physiq = level*2;
-			senses = level*2;
-			intellegence = level*2;
+			skills.physiq = level*2;
+			skills.senses = level*2;
+			skills.intellegence = level*2;
 		}
 		
 		name = types[0].getMonster(monsterClass);
@@ -112,7 +112,13 @@ num = Math.floor(Math.random()*10);
 			name =types[i+1].getDescriptor() +" "+name ;
 		}
 		
-		
+		for(i=0;i<(types.length);i++){
+			skills_update=types[i].getPSI();
+			skills.physiq+= Math.floor(((1+skills_update.physiq)*level)/3);
+			skills.senses+= Math.floor(((1+skills_update.senses)*level)/3);
+			skills.intellegence+= Math.floor(((1+skills_update.intellegence)*level)/3);
+			
+		}
 		
 		
 		var attack_count = Math.floor(level/5)+1;
@@ -170,6 +176,10 @@ num = Math.floor(Math.random()*10);
 		
 		this.getAttack =function(){
 			return _.sample(attacks);
+		}
+		
+		this.getExperience = function(){
+			return level;
 		}
 		
 		//this.printOut();

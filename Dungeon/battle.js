@@ -22,7 +22,7 @@ var fight_style = function(attack_skill, attack_name){
 		mana_use = Math.floor(Math.random()*21);
 	}
 	
-	console.log(health_use+" "+mana_use+" "+vitality_use);
+	//console.log(health_use+" "+mana_use+" "+vitality_use);
 	
 	this.checkHit =function(){
 		var chance = 1+Math.floor(Math.random()*100);

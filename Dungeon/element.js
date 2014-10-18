@@ -7,6 +7,7 @@ var element = function(id, rooms, monstersNames, descript, stat, colorhex){
 	var monsters =monstersNames;
 	var descriptors = descript;
 	var color = colorhex;
+	var stat_plus = stat;
 	
 	var PSI = { physiq: 0, senses: 0, intellegence: 0};
 		
@@ -47,6 +48,10 @@ var element = function(id, rooms, monstersNames, descript, stat, colorhex){
 	
 	this.getPSI = function(){
 		return PSI;
+	}
+	
+	this.getStat = function(){
+		return stat_plus;
 	}
 	
 	elements[name]=this;

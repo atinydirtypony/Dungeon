@@ -100,8 +100,13 @@ app.factory("player", function(floor) {
 		
 		if(mana<=0){
 			this.goInsane();
+			mana = 0;
 		}
-		
+		if(vitality<=0){ 
+			health+= Math.ceil(vitality/2);
+			mana+= Math.ceil(vitality/2);
+			vitality = 0;
+		}
 		this.updateStats();
 		
 		
@@ -109,22 +114,46 @@ app.factory("player", function(floor) {
 	
 	//changes max stat
 	this.statChange= function(H,M,V){
-		maximumhealth+=H;
-		maximummana+=M;
-		maximumvitality+=V;
+		maximumHealth+=H;
+		maximumMana+=M;
+		maximumVitality+=V;
 		this.updateStats();	
 	}
 
 	this.addExperience = function(exp) {
 		experience += exp;
-		if (experience > (level*(level-1))){
-			this.levelup();
-			experience = experience - (level*(level-1));
+		if (experience > ((level+1)*(level+1))){
+			this.levelUp();
+			experience = experience - ((level+1)*(level+1));
 		}
 	}
 	
 	this.levelUp = function(){
-		
+		level+=1;
+		//console.log(level);
+		stat_up=types[level%types.length].getStat();
+		if(stat_up == "health"){
+			this.statChange(5,0,0);
+			this.statAdjust(5,0,0);
+		}
+		if(stat_up == "mana"){
+			this.statChange(0,5,0);
+			this.statAdjust(0,5,0);
+		}
+		if(stat_up == "vitality"){
+			this.statChange(0,0,5);
+			this.statAdjust(0,0,5);
+		}
+		var skill_up= { physiq: 3, senses: 3, intellegence: 3}
+		_.each(types,function(type){
+			var PSI = type.getPSI();
+			skill_up.physiq+= PSI.physiq;
+			skill_up.senses+= PSI.senses;
+			skill_up.intellegence+= PSI.intellegence;
+		} );
+		skills.intellegence+=skill_up.intellegence;
+		skills.physiq+=skill_up.physiq;
+		skills.senses+=skill_up.senses;
 	}
 	
 	var getRoom = function() {
