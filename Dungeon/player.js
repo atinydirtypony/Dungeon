@@ -36,13 +36,13 @@ app.factory("player", function(floor) {
 	allbilities[ATK.getName().replace(" ","")] = ATK;
 	attacks[ATK.getName().replace(" ","")] = ATK;
 	ATK=null;
-	for(i=0;i<4;i++){
+	/*for(i=0;i<4;i++){
 		ATK = new ability(_.sample(elements),20);
 		console.log(ATK);
 		allbilities[ATK.getName().replace(" ","")] = ATK;
 		attacks[ATK.getName().replace(" ","")] = ATK;
 		ATK=null;
-	}
+	}*/
 	
 	
 	this.addAttack = function(attack){
@@ -83,14 +83,17 @@ app.factory("player", function(floor) {
 		
 		
 		//set to max
+		
+		if(vitality>maximumVitality){
+			health+=Math.floor((vitality-100)/2)
+			mana+=Math.floor((vitality-100)/2)
+			vitality=maximumVitality;
+		}
 		if(mana>maximumMana){
 			mana = maximumMana;
 		}
 		if(health>maximumHealth){
 			health = maximumHealth;
-		}
-		if(vitality>maximumVitality){
-			vitality=maximumVitality;
 		}
 		
 		//check for 0's
@@ -204,6 +207,26 @@ app.factory("player", function(floor) {
 		}
 		console.log("x:"+location.x+ " y:"+location.y)
 		return result;
+		
+	}
+	
+	this.rest = function(){
+		var bigM=1;
+
+		_.each(types, function(t1){
+			if(t1.getCross(getRoom().getTypes()[1].getName())!=0){
+				bigM = bigM * t1.getCross(getRoom().getTypes()[1].getName());
+			}else{
+				bigM = bigM * 0.25;
+			}
+			
+			if(t1.getCross(getRoom().getTypes()[0].getName())!=0){
+				bigM = bigM * t1.getCross(getRoom().getTypes()[0].getName());
+			}else{
+				bigM = bigM * 0.25;
+			}
+		});
+		this.statAdjust(0,0,Math.floor(5/bigM));
 		
 	}
 	

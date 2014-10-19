@@ -125,7 +125,7 @@ num = Math.floor(Math.random()*10);
 		if(attack_count>5){
 			attack_count =5;
 		}
-		attacks = {};
+		var attacks = {};
 		for(i=0;i<attack_count;i++){
 			var crtType = _.sample(types);
 			console.log(name+ ": "+crtType.getName());

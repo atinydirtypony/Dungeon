@@ -4,7 +4,7 @@ app.factory("terminal", function(player, floor) {
 	
 	var $scope;
 	
-	var commands = ["map","look","move", "WALLS", "teleport", "pick", "inventory", "use", "list", "help", "attacks"];
+	var commands = ["map","look","move", "rest", "WALLS", "teleport", "pick", "inventory", "use", "list", "help", "attacks"];
 	
 	var fights =player.getATKnames();
 	//console.log(commands);
@@ -124,6 +124,15 @@ app.factory("terminal", function(player, floor) {
 				}
 			})
 			
+			if(command.indexOf("rest") >= 0){
+				if(!battle){
+					player.rest();
+					echo("You have rested");
+				}else{
+					echo("You cannot rest in battle!");
+				}
+				
+			}
 			
 			//moves player
 			if(command.indexOf("move") >= 0){
