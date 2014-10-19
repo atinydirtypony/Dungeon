@@ -42,6 +42,8 @@ app.factory("terminal", function(player, floor) {
 		}
 		if(_.contains(commands, command.split(" ")[0]) || _.contains(fights, command)) {
 			player.setInput(command);
+			var startX = player.getLocation.x;
+			var startY = player.getLocation.y;
 			//console.log(player.lastInput());
 			///----------------------------------------------------------------------------------
 			player.getRoom().setEnemy();
@@ -106,7 +108,7 @@ app.factory("terminal", function(player, floor) {
 			if(command.indexOf("attacks") >= 0){
 				var string =""
 				_.each(fights, function(name){
-					string+="!!!"+name+"!!!"+player.getAttack(name).getStyle().getInfo()+"\t Power: "+player.getAttack(name).getPower()+"\n\n";
+					string+=name+": "+player.getAttack(name).getSecondar()+"\t"+player.getAttack(name).getStyle().getInfo()+"\t Power: "+player.getAttack(name).getPower()+"\n\n";
 				})
 				echo(string);
 			}
@@ -238,10 +240,19 @@ app.factory("terminal", function(player, floor) {
 					echo(mapScape[i]);
 				}
 			}
-
+			
+			
+			if(startX != player.getLocation().x || startY != player.getLocation().y){
+				if( player.getRoom().getEnemy() != null){
+					battle =true;
+				}else{
+					battle =false;
+				}
+			}
 			
 			if(battle){
 				if(playerATK != null){
+					//attack set up
 					var targets =["physiq","senses","intellegence"];
 					var pTarget = _.sample(targets);
 					var target = _.sample(targets);
@@ -257,6 +268,8 @@ app.factory("terminal", function(player, floor) {
 					});
 					 hit = Math.ceil(hit);
 					 damage = Math.ceil(hit);
+					 
+					 //choose who goes first then deal out the damages
 					
 					
 					if((_.indexOf(targets, pTarget)+1)%3 == _.indexOf(targets, target)){
@@ -265,6 +278,10 @@ app.factory("terminal", function(player, floor) {
 							if(attack.getStyle().checkHit()){
 								player.statAdjust(-damage,0,0);
 								echo(player.getRoom().getEnemy().getName()+" used "+attack.getName()+" againt your "+target);
+								var effect = attack.secondar(player.getRoom().getEnemy(),player, damage);
+								if(effect){
+									echo(attack.getSecondar()+ " took effect;")
+								}
 							}else{
 								echo(player.getRoom().getEnemy().getName()+" missed!");
 							}
@@ -276,6 +293,10 @@ app.factory("terminal", function(player, floor) {
 							if(playerATK.getStyle().checkHit()){
 								player.getRoom().getEnemy().statAdjust(-hit,0,0);
 								echo("You used "+playerATK.getName()+" againt its "+pTarget);
+								var effect = playerATK.secondar(player, player.getRoom().getEnemy(), damage);
+								if(effect){
+									echo(playerATK.getSecondar()+ " took effect;")
+								}
 							}else{
 								echo("You missed!");
 							}
@@ -291,6 +312,10 @@ app.factory("terminal", function(player, floor) {
 							if(playerATK.getStyle().checkHit()){
 								player.getRoom().getEnemy().statAdjust(-hit,0,0);
 								echo("You used "+playerATK.getName()+" againt its "+pTarget);
+								var effect = playerATK.secondar(player, player.getRoom().getEnemy(), damage);
+								if(effect){
+									echo(playerATK.getSecondar()+ " took effect;")
+								}
 							}else{
 								echo("You missed!");
 							}
@@ -303,6 +328,10 @@ app.factory("terminal", function(player, floor) {
 							if(attack.getStyle().checkHit()){
 								player.statAdjust(-damage,0,0);
 								echo(player.getRoom().getEnemy().getName()+" used "+attack.getName()+" againt your "+target);
+								var effect = attack.secondar(player.getRoom().getEnemy(),player, damage);
+								if(effect){
+									echo(attack.getSecondar()+ " took effect;")
+								}
 							}else{
 								echo(player.getRoom().getEnemy().getName()+" missed!");
 							}
@@ -319,6 +348,10 @@ app.factory("terminal", function(player, floor) {
 								if(attack.getStyle().checkHit()){
 									player.statAdjust(-damage,0,0);
 									echo(player.getRoom().getEnemy().getName()+" used "+attack.getName()+" againt your "+target);
+									var effect = attack.secondar(player.getRoom().getEnemy(),player, damage);
+									if(effect){
+										echo(attack.getSecondar()+ " took effect;")
+									}
 								}else{
 									echo(player.getRoom().getEnemy().getName()+" missed!");
 								}
@@ -330,6 +363,10 @@ app.factory("terminal", function(player, floor) {
 								if(playerATK.getStyle().checkHit()){
 									player.getRoom().getEnemy().statAdjust(-hit,0,0);
 									echo("You used "+playerATK.getName()+" againt its "+pTarget);
+									var effect = playerATK.secondar(player, player.getRoom().getEnemy(), damage);
+									if(effect){
+										echo(playerATK.getSecondar()+ " took effect;")
+									}
 								}else{
 									echo("You missed!");
 								}
@@ -345,6 +382,10 @@ app.factory("terminal", function(player, floor) {
 								if(playerATK.getStyle().checkHit()){
 									player.getRoom().getEnemy().statAdjust(-hit,0,0);
 									echo("You used "+playerATK.getName()+" againt its "+pTarget);
+									var effect = playerATK.secondar(player, player.getRoom().getEnemy(), damage);
+									if(effect){
+										echo(playerATK.getSecondar()+ " took effect;")
+									}
 								}else{
 									echo("You missed!");
 								}
@@ -357,6 +398,10 @@ app.factory("terminal", function(player, floor) {
 								if(attack.getStyle().checkHit()){
 									player.statAdjust(-damage,0,0);
 									echo(player.getRoom().getEnemy().getName()+" used "+attack.getName()+" againt your "+target);
+									var effect = attack.secondar(player.getRoom().getEnemy(),player, damage);
+									if(effect){
+										echo(attack.getSecondar()+ " took effect;")
+									}
 								}else{
 									echo(player.getRoom().getEnemy().getName()+" missed!");
 								}
@@ -366,6 +411,8 @@ app.factory("terminal", function(player, floor) {
 						}
 						
 					}
+						
+					
 				}else{
 					var target = _.sample(["physiq","senses","intellegence"]);
 					var damage =attack.damageCalc(player.getRoom().getEnemy(),player, target);
@@ -378,6 +425,10 @@ app.factory("terminal", function(player, floor) {
 						if(attack.getStyle().checkHit()){
 							player.statAdjust(-damage,0,0);
 							echo(player.getRoom().getEnemy().getName()+" used "+attack.getName()+" againt your "+target);
+							var effect = attack.secondar(player.getRoom().getEnemy(),player, damage);
+							if(effect){
+								echo(attack.getSecondar()+ " took effect;")
+							}
 						}else{
 							echo(player.getRoom().getEnemy().getName()+" missed!");							}
 					}else{

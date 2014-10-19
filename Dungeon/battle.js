@@ -1,4 +1,59 @@
 
+var secondaryAbilites = function(){
+	var effects = [];
+
+	var damageVitality = function(attacker, defender, n){
+		defender.statAdjust(0,0,-Math.floor(n/3));
+	}
+	effects.push({name: "Vitality Damage", use: damageVitality});
+	
+	var damageMana = function(attacker, defender, n){
+		defender.statAdjust(0,-Math.floor(n/3),0);
+		
+	}
+	effects.push({name: "Mana Damage", use: damageMana});
+	
+	var healthDrain= function(attacker, defender, n){
+		
+		attacker.statAdjust(Math.floor(n/5),0,0);
+
+	}
+	effects.push({name:"Health Drain", use: healthDrain});
+	
+	var vitalityDrain= function(attacker, defender, n){
+		defender.statAdjust(0,0,-Math.floor(n/5));
+		attacker.statAdjust(0,0,Math.floor(n/5));
+
+	}
+	effects.push({name:"Vitality Drain", use: vitalityDrain});
+	
+	var manaDrain= function(attacker, defender, n){
+		defender.statAdjust(0,-Math.floor(n/5),0);
+		attacker.statAdjust(0,Math.floor(n/5),0);
+
+	}
+	effects.push({name:"Mana Drain", use: manaDrain});
+
+	
+	
+	
+	//----------------------------------------------------------
+	
+	
+	this.getEffect = function(){
+		return _.sample(effects);
+	}
+	
+
+}
+
+var SEffects = new secondaryAbilites();
+console.log(SEffects.getEffect().name);
+
+//########################################################################################
+
+
+
 var fight_style = function(attack_skill, attack_name){
 	this.skill =attack_skill;
 	this.name = attack_name;
@@ -13,13 +68,13 @@ var fight_style = function(attack_skill, attack_name){
 	var mana_use=0;
 	
 	if(use_chance%4 == 0){
-		health_use = Math.floor(Math.random()*11);
+		health_use = Math.floor(Math.random()*11)+1;
 	}
 	if(use_chance<19){
-		vitality_use =Math.floor(Math.random()*31);
+		vitality_use =Math.floor(Math.random()*31)+1;
 	}
 	if(use_chance>11 && use_chance<28){
-		mana_use = Math.floor(Math.random()*21);
+		mana_use = Math.floor(Math.random()*21)+1;
 	}
 	
 	//console.log(health_use+" "+mana_use+" "+vitality_use);
@@ -70,6 +125,8 @@ var fight_style = function(attack_skill, attack_name){
 }
 
 
+//##########################################################
+
 var ability = function(T, goal){
 	
 	var type = T;
@@ -80,6 +137,8 @@ var ability = function(T, goal){
 	var name = type.getDescriptor()+ " "+style.name;
 	var power = Math.ceil((goal-10+Math.floor(Math.random()*20))/(style.effectiveRatio()));
 	//console.log(power);
+	
+	var effect = SEffects.getEffect();
 	
 	this.getStyle =function(){
 		return style;
@@ -103,6 +162,19 @@ var ability = function(T, goal){
 		return Math.sqrt(Math.sqrt((skill1/skill2)))*power;
 	}
 	
+	this.secondar = function(player1, player2,D){
+		if(style.checkExtra()){
+			effect.use(player1, player2,D);
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	this.getSecondar =function(){
+		return effect.name;
+	}
+	
 	this.getType = function(){
 		return type;
 	}
@@ -115,11 +187,22 @@ new fight_style("intellegence","Blast"),
 new fight_style("senses","Breath"),
 new fight_style("physiq","Kick"),
 new fight_style("intellegence","Force"),
-new fight_style("senses","Stare")
+new fight_style("senses","Stare"),
+new fight_style("senses", "Scream"),
+new fight_style("intellegence", "Prayer"),
+new fight_style("physiq", "Thrust"),
+new fight_style("senses", "Pulse"),
+new fight_style("intellegence", "Field"),
+new fight_style("physiq", "Slam"),
+new fight_style("senses", "Goo"),
+new fight_style("intellegence", "Experiment"),
+new fight_style("physiq", "Upper-Cut"),
+new fight_style("senses", "Smell"),
+new fight_style("intellegence", "Telepathy"),
+new fight_style("physiq", "Grab")
 ];
 
 allbilities ={};
-
 
 
 
