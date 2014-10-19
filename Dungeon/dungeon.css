@@ -75,6 +75,7 @@ body{
 	position: absolute;
 	top: 370px;
 	left: 7px;
+
 	
 }
 
@@ -84,6 +85,23 @@ body{
 	list-style:none;
 	font-size:x-small;
 	margin-bottom: 31px;
+	vetical-align:bottom;
+
+}
+
+#attack_button{
+	position: absolute;
+	top: 355px;
+	left: 158px;
+}
+
+#attack_button li{
+	disply: inline-block;
+	height:45px;
+	width:45px;
+	background: #FF0;
+	list-style:none;
+	margin-bottom: 16px;
 }
 
 .room_info{

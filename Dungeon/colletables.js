@@ -114,7 +114,7 @@ app.factory("collectablesFactory", function() {
 	}
 		
 	var stealPower = function(player){
-		if(player.getRoom().getEnemy() != null){
+		if(player.getRoom().getEnemy() != null && player.getATKnames.length < 5){
 			var ATK =player.getRoom().getEnemy().getAttack();
 			player.addAttack(ATK);
 			return{text: ATK.getName() + " was gained", result: true }

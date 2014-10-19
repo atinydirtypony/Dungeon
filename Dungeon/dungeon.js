@@ -22,6 +22,7 @@ app.controller("dungeonController", function($scope,$timeout,player,floor,termin
         || el.mozRequestFullScreen;
 		func.call(el);
 	}
+	
 
 });
 

@@ -36,13 +36,13 @@ app.factory("player", function(floor) {
 	allbilities[ATK.getName().replace(" ","")] = ATK;
 	attacks[ATK.getName().replace(" ","")] = ATK;
 	ATK=null;
-	/*for(i=0;i<4;i++){
+	for(i=0;i<4;i++){
 		ATK = new ability(_.sample(elements),20);
 		console.log(ATK);
 		allbilities[ATK.getName().replace(" ","")] = ATK;
 		attacks[ATK.getName().replace(" ","")] = ATK;
 		ATK=null;
-	}*/
+	}
 	
 	
 	this.addAttack = function(attack){
@@ -362,6 +362,10 @@ app.factory("player", function(floor) {
 	
 	this.getAttack = function(name){
 		return attacks[name.replace(" ","")];
+	}
+	
+	this.deleteATK = function(name){
+		delete attacks[name.replace(" ","")];
 	}
 	
 	this.getSkills = function(){

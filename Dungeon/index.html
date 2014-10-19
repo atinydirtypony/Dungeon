@@ -77,6 +77,12 @@
 				<div id="attacks">
 					<ul>
 						<li ng-repeat="ATK in player.getATKnames()" style="color: {{player.getAttack(ATK).getType().getColor()}};">{{ATK}}</li>
+						
+					</ul>
+				</div>
+				<div id= "attack_button">
+					<ul>
+						<li ng-repeat="ATK in player.getATKnames()" ng-click="player.deleteATK(ATK)"></li>
 					</ul>
 				</div>
 			</div>
